@@ -12,7 +12,7 @@
 /* ══════════════════════════════════════════════════════════════════
    1. APPLICATION STATE
    ══════════════════════════════════════════════════════════════════ */
-const GEMINI_API_KEY = "AIzaSyBrNZOjkRiKVlqU36cLXJ4fpF7isvieKDo";
+const GEMINI_API_KEY = (window.__NABDH_GEMINI_API_KEY || "").trim();
 const GEMINI_MODEL = "gemini-2.0-flash";
 
 const state = {
@@ -597,7 +597,12 @@ async function launchAppFeed() {
 async function loadSeedItems() {
   try {
     const res = await fetch("seed_items.json");
-    state.items = await res.json();
+    const rawItems = await res.json();
+    state.items = rawItems.map((item) => ({
+      ...item,
+      description: item.description || item.summary || "",
+      url: item.url || item.link || "#",
+    }));
     state.items.forEach((item, idx) => {
       if (state.upvotes[item.id] === undefined) {
         state.upvotes[item.id] = 14 + ((idx * 5) % 31);
@@ -700,6 +705,7 @@ function buildUserPrompt(profile, items, feedback) {
 }
 
 async function callGeminiAPI(systemPrompt, userPrompt) {
+  if (!GEMINI_API_KEY) throw new Error("Gemini API key is not configured");
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
   const body = {
     system_instruction: { parts: [{ text: systemPrompt }] },
