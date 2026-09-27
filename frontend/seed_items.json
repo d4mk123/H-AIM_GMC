@@ -1,5 +1,203 @@
 [
   {
+    "id": "news-01",
+    "type": "news",
+    "title": "Tunisia Launches National AI Strategy 2025-2030",
+    "description": "The Tunisian government has officially launched its national AI strategy, aiming to position Tunisia as a regional hub for artificial intelligence research and development across North Africa. The strategy includes funding for AI startups, university research labs, and public-sector AI adoption.",
+    "tags": ["AI", "government", "strategy", "research"],
+    "source": "Tunisian Ministry of Communication Technologies",
+    "date": "2026-09-20",
+    "url": "#",
+    "location": "Tunis"
+  },
+  {
+    "id": "job-01",
+    "type": "job",
+    "title": "Junior Cloud Engineer — Vermeg, Tunis",
+    "description": "Vermeg is hiring a junior cloud engineer to work on AWS and Azure deployments for its fintech platform. Candidates should have experience with Docker, Kubernetes, and CI/CD pipelines. Open to recent graduates with strong cloud fundamentals.",
+    "tags": ["cloud", "AWS", "Azure", "DevOps", "fintech"],
+    "source": "Vermeg Careers",
+    "date": "2026-09-18",
+    "url": "#",
+    "location": "Les Berges du Lac, Tunis"
+  },
+  {
+    "id": "event-01",
+    "type": "event",
+    "title": "Tunisia Digital Summit 2026",
+    "description": "The annual Tunisia Digital Summit brings together startups, enterprise leaders, and government officials to discuss digital transformation. This year's focus: AI-driven public services and cybersecurity. Free passes available for students.",
+    "tags": ["digital transformation", "AI", "cybersecurity", "networking"],
+    "source": "Tunisia Digital Summit",
+    "date": "2026-10-15",
+    "url": "#",
+    "location": "Tunis, UTICA Conference Center"
+  },
+  {
+    "id": "job-02",
+    "type": "job",
+    "title": "Data Science Intern — InstaDeep (BioNTech), Tunis Office",
+    "description": "InstaDeep's Tunis office is offering a 6-month data science internship focused on applying machine learning to drug discovery problems. Strong Python, PyTorch, and statistics background required. Opportunity to publish research.",
+    "tags": ["data science", "AI", "machine learning", "internship", "biotech"],
+    "source": "InstaDeep Careers",
+    "date": "2026-09-22",
+    "url": "#",
+    "location": "Les Berges du Lac 2, Tunis"
+  },
+  {
+    "id": "news-02",
+    "type": "news",
+    "title": "Flat6Labs Tunis Announces Fall 2026 Cohort — Applications Open",
+    "description": "Flat6Labs Tunis has opened applications for its Fall 2026 accelerator cohort, targeting early-stage startups in healthtech, edtech, and greentech. Selected teams receive up to 120,000 TND in funding plus mentorship from regional industry leaders.",
+    "tags": ["startups", "accelerator", "funding", "entrepreneurship"],
+    "source": "Flat6Labs Tunis",
+    "date": "2026-09-15",
+    "url": "#",
+    "location": "Tunis"
+  },
+  {
+    "id": "job-03",
+    "type": "job",
+    "title": "Full-Stack Developer — Expensya, Tunis",
+    "description": "Expensya is looking for a full-stack developer proficient in React and Node.js to join their product team. You'll build features for their expense management SaaS used across Europe and MENA. Hybrid work model available.",
+    "tags": ["full-stack", "React", "Node.js", "SaaS", "web development"],
+    "source": "Expensya Careers",
+    "date": "2026-09-19",
+    "url": "#",
+    "location": "Centre Urbain Nord, Tunis"
+  },
+  {
+    "id": "event-02",
+    "type": "event",
+    "title": "Google Developer Group Tunis — Cloud Study Jam",
+    "description": "GDG Tunis is hosting a free Cloud Study Jam focused on Google Cloud fundamentals and the Associate Cloud Engineer certification path. Hands-on labs, pizza, and networking. Open to all levels.",
+    "tags": ["cloud", "Google Cloud", "certification", "community", "networking"],
+    "source": "GDG Tunis",
+    "date": "2026-10-05",
+    "url": "#",
+    "location": "GOMYCODE Tunis, Lac 2"
+  },
+  {
+    "id": "news-03",
+    "type": "news",
+    "title": "Tunisian Startup Instadeep Secures Major Contract with European Space Agency",
+    "description": "Tunis-founded AI company InstaDeep has landed a contract with ESA to apply reinforcement learning to satellite operations optimization. The project will partially run from InstaDeep's Tunis R&D center, creating new AI research positions locally.",
+    "tags": ["AI", "space tech", "research", "startups"],
+    "source": "Webmanagercenter",
+    "date": "2026-09-24",
+    "url": "#",
+    "location": "Tunis"
+  },
+  {
+    "id": "job-04",
+    "type": "job",
+    "title": "AI/ML Engineer — Sesame IT (Part-time/Student OK)",
+    "description": "Sesame IT is hiring an AI/ML engineer for NLP projects in Arabic language processing. Part-time arrangements available for students. Experience with transformers, Hugging Face, and Arabic NLP datasets preferred.",
+    "tags": ["AI", "machine learning", "NLP", "Arabic", "part-time"],
+    "source": "Sesame IT",
+    "date": "2026-09-21",
+    "url": "#",
+    "location": "Ariana, Tunis"
+  },
+  {
+    "id": "event-03",
+    "type": "event",
+    "title": "Hack4Tunisia — National Civic Tech Hackathon",
+    "description": "A 48-hour hackathon focused on civic tech solutions for Tunisia: open data, e-government, and citizen engagement platforms. Cash prizes totaling 15,000 TND. Teams of 3-5, all skill levels welcome.",
+    "tags": ["hackathon", "civic tech", "open data", "competition"],
+    "source": "OpenGov Tunisia",
+    "date": "2026-11-08",
+    "url": "#",
+    "location": "Technopole El Ghazala, Ariana"
+  },
+  {
+    "id": "job-05",
+    "type": "job",
+    "title": "Backend Developer (Python/Django) — Kaoun International, Sousse",
+    "description": "Kaoun International, makers of the Enova Robotics platform, is seeking a backend developer for their AI-powered robotics control systems. Python, Django, REST APIs, and PostgreSQL experience required. Opportunity to work on cutting-edge robotics.",
+    "tags": ["backend", "Python", "Django", "robotics", "AI"],
+    "source": "Kaoun International",
+    "date": "2026-09-17",
+    "url": "#",
+    "location": "Sousse Technopole"
+  },
+  {
+    "id": "news-04",
+    "type": "news",
+    "title": "ESPRIT University Partners with AWS to Launch Cloud Computing Track",
+    "description": "ESPRIT, one of Tunisia's top engineering schools, has announced a new cloud computing specialization track in partnership with AWS. Students will get free AWS credits, certification prep, and internship placements at Tunisian cloud-first companies.",
+    "tags": ["cloud", "AWS", "education", "university", "certification"],
+    "source": "ESPRIT University",
+    "date": "2026-09-23",
+    "url": "#",
+    "location": "ESPRIT Campus, Tunis"
+  },
+  {
+    "id": "event-04",
+    "type": "event",
+    "title": "DevFest North Africa 2026 — Hammamet",
+    "description": "The largest developer conference in North Africa returns to Hammamet. Tracks on web, mobile, cloud, AI/ML, and career development. Keynotes from Google, Microsoft, and regional tech leaders. Early-bird student tickets at 25 TND.",
+    "tags": ["conference", "web development", "mobile", "cloud", "AI", "career"],
+    "source": "GDG North Africa",
+    "date": "2026-11-22",
+    "url": "#",
+    "location": "Hammamet, Tunisia"
+  },
+  {
+    "id": "job-06",
+    "type": "internship",
+    "title": "Cybersecurity Internship — Banque de Tunisie IT Division",
+    "description": "Banque de Tunisie's IT security team is offering a 4-month internship in cybersecurity operations: SIEM monitoring, vulnerability assessments, and incident response. Great for students pursuing a career in infosec.",
+    "tags": ["cybersecurity", "internship", "banking", "security", "SIEM"],
+    "source": "Banque de Tunisie",
+    "date": "2026-09-16",
+    "url": "#",
+    "location": "Tunis Centre"
+  },
+  {
+    "id": "news-05",
+    "type": "news",
+    "title": "Tunis Joins UNESCO Global Network of Learning Cities",
+    "description": "Tunis has been added to UNESCO's Global Network of Learning Cities, recognizing the city's investment in digital skills training and tech education accessibility programs, including coding bootcamps and free online learning platforms.",
+    "tags": ["education", "digital skills", "community", "policy"],
+    "source": "UNESCO",
+    "date": "2026-09-10",
+    "url": "#",
+    "location": "Tunis"
+  },
+  {
+    "id": "job-07",
+    "type": "job",
+    "title": "Mobile Developer (Flutter) — DigitUS, Sfax",
+    "description": "DigitUS, a growing Sfax-based software agency, is hiring a Flutter developer to build cross-platform mobile apps for European clients. Remote-friendly within Tunisia. Portfolio of published apps preferred.",
+    "tags": ["mobile", "Flutter", "cross-platform", "remote"],
+    "source": "DigitUS",
+    "date": "2026-09-25",
+    "url": "#",
+    "location": "Sfax, Tunisia"
+  },
+  {
+    "id": "event-05",
+    "type": "event",
+    "title": "Women Techmakers Tunis — AI for Social Good Workshop",
+    "description": "Women Techmakers Tunis is hosting a hands-on workshop on building AI models for social good applications. Focus on computer vision for accessibility and NLP for local language support. Mentors from Google and local AI startups. Open to all genders.",
+    "tags": ["AI", "social impact", "workshop", "community", "diversity"],
+    "source": "Women Techmakers Tunis",
+    "date": "2026-10-12",
+    "url": "#",
+    "location": "Impact Hub Tunis"
+  },
+  {
+    "id": "job-08",
+    "type": "job",
+    "title": "DevOps Engineer — Sofrecom Tunisia (Orange Group)",
+    "description": "Sofrecom Tunisia, part of Orange Group, is hiring a DevOps engineer for their cloud infrastructure team. Terraform, Ansible, Jenkins, and Linux administration skills required. Competitive salary and international project exposure.",
+    "tags": ["DevOps", "cloud", "infrastructure", "Linux", "Terraform"],
+    "source": "Sofrecom Careers",
+    "date": "2026-09-20",
+    "url": "#",
+    "location": "Les Berges du Lac, Tunis"
+  }
+]
     "id": "news-001",
     "type": "news",
     "title": "Tunisia Expands Startup Financing Efforts Through New Fund Initiative",
