@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nabdh — The Pulse of Tunisian Tech, Personalized</title>
+  <meta name="description"
+    content="One personalized feed of Tunisian tech news, jobs, internships, and events — ranked by AI against your actual profile." />
+  <meta name="theme-color" content="#0b0e14" />
+
+  <!-- Fonts: Inter + Cairo -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="nabdh-app">
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 1. WELCOME / LANDING PAGE                           -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="welcome-page" class="welcome-page active">
+    <!-- Landing Top Navbar -->
+    <header class="landing-header">
+      <div class="landing-brand">
+        <div class="brand-badge">
+          <svg viewBox="0 0 48 48" fill="none" class="brand-icon" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="22" stroke="url(#pulse-grad)" stroke-width="2.5" opacity="0.3" />
+            <circle cx="24" cy="24" r="14" stroke="url(#pulse-grad)" stroke-width="2" opacity="0.6" />
+            <circle cx="24" cy="24" r="7" fill="url(#pulse-grad)" opacity="0.95" />
+            <path d="M6 24 C6 24 13 14 19 24 C25 34 31 14 37 24 C42 32 42 24 42 24" stroke="url(#pulse-grad)"
+              stroke-width="2.6" stroke-linecap="round" fill="none" />
+            <defs>
+              <linearGradient id="pulse-grad" x1="0" y1="0" x2="48" y2="48">
+                <stop offset="0%" stop-color="#00e5a0" />
+                <stop offset="100%" stop-color="#00d4ff" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="landing-brand-name">Nabdh</span>
+      </div>
+
+      <div class="landing-nav-actions">
+        <button type="button" class="btn-text-nav" id="welcome-login-btn">Log in</button>
+        <button type="button" class="btn-signup-pill" id="welcome-signup-btn">Get Started</button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="landing-main">
+      <section class="landing-hero">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            Where Tunisian developers discover what's next.
+          </h1>
+          <p class="hero-subtitle">
+            One personalized feed of tech news, jobs, internships, and events happening in Tunisia — ranked by AI
+            against your actual profile and updated automatically on a schedule you set.
+          </p>
+
+          <!-- Quick Auth Buttons -->
+          <div class="hero-auth-actions">
+            <button type="button" class="social-auth-btn google-btn" id="hero-google-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path fill="#4285F4"
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                <path fill="#34A853"
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                <path fill="#FBBC05"
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                <path fill="#EA4335"
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+              </svg>
+              <span>Continue with Google</span>
+            </button>
+
+            <button type="button" class="social-auth-btn github-btn" id="hero-github-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              </svg>
+              <span>Continue with GitHub</span>
+            </button>
+
+            <button type="button" class="social-auth-btn email-btn" id="hero-email-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg>
+              <span>Continue with email</span>
+            </button>
+          </div>
+
+          <p class="hero-terms">
+            By continuing, you agree to our Terms of Service and Privacy Policy.
+          </p>
+
+          <p class="hero-login-link">
+            Already have an account? <button type="button" class="btn-inline-link" id="hero-login-link-btn">Log
+              in</button>
+          </p>
+        </div>
+
+        <!-- Hero UI Showcase Card -->
+        <div class="hero-mockup-wrapper">
+          <div class="hero-glow-back"></div>
+          <div class="hero-screen-mockup">
+            <div class="mockup-header-bar">
+              <div class="mockup-dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="mockup-search-preview">
+                Search Tunisian tech (AI, cloud, jobs, events)...
+              </div>
+              <div class="mockup-timer-pill">
+                <span class="timer-dot"></span>
+                <span>Auto-sync: 25s</span>
+              </div>
+            </div>
+
+            <!-- Mini Live Feed Preview Inside Mockup -->
+            <div class="mockup-feed-preview">
+              <div class="mockup-card active-card">
+                <div class="mockup-card-top">
+                  <span class="mockup-badge news-badge">NEWS</span>
+                  <span class="mockup-score">98% Fit</span>
+                </div>
+                <div class="mockup-title">Tunisia Launches National AI Strategy 2025-2030</div>
+                <div class="mockup-reason">Aligns with your AI and Cloud computing interest</div>
+              </div>
+
+              <div class="mockup-card">
+                <div class="mockup-card-top">
+                  <span class="mockup-badge job-badge">JOB</span>
+                  <span class="mockup-score">96% Fit</span>
+                </div>
+                <div class="mockup-title">Junior Cloud Engineer — Vermeg, Tunis</div>
+                <div class="mockup-reason">Directly matches your AWS & DevOps interests</div>
+              </div>
+
+              <div class="mockup-card">
+                <div class="mockup-card-top">
+                  <span class="mockup-badge event-badge">EVENT</span>
+                  <span class="mockup-score">94% Fit</span>
+                </div>
+                <div class="mockup-title">Google Developer Group Tunis — Cloud Study Jam</div>
+                <div class="mockup-reason">Recommended learning event for students & juniors</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats Bar (Social Proof) -->
+      <section class="landing-stats-bar">
+        <p class="stats-intro">Trusted by students, developers, and tech builders across Tunisia</p>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon-svg">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)"
+                stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M2 12h20" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+            </div>
+            <div class="stat-value">100% Tunisia</div>
+            <div class="stat-label">Zero noise, purely local tech</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon-svg">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+              </svg>
+            </div>
+            <div class="stat-value">18+ Sources</div>
+            <div class="stat-label">InstaDeep, Vermeg, GDG, Flat6Labs...</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon-svg">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)"
+                stroke-width="2">
+                <path
+                  d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z" />
+                <circle cx="12" cy="15" r="2" />
+              </svg>
+            </div>
+            <div class="stat-value">Gemini AI</div>
+            <div class="stat-label">Personalized semantic ranking</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon-svg">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)"
+                stroke-width="2">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+            </div>
+            <div class="stat-value">Live Pulse</div>
+            <div class="stat-label">Automatic background re-ranking</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Feature Pill Filter Bar -->
+      <section class="landing-features-strip">
+        <h2 class="features-heading">Everything a Tunisian developer needs. In one feed.</h2>
+        <p class="features-sub">Your whole ecosystem in one ranked stream. Only what is worth reading, none of the
+          noise.</p>
+
+        <div class="features-pill-row">
+          <span class="feature-pill active">Feed</span>
+          <span class="feature-pill">Jobs</span>
+          <span class="feature-pill">Internships</span>
+          <span class="feature-pill">Tech Events</span>
+          <span class="feature-pill">Squads</span>
+          <span class="feature-pill">AI Reasoning</span>
+          <span class="feature-pill">Bookmarks</span>
+          <span class="feature-pill">Streaks</span>
+        </div>
+      </section>
+
+      <!-- Testimonials Section -->
+      <section class="landing-testimonials">
+        <h2 class="testimonials-heading">The feed Tunisian developers keep coming back to.</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "Tunisian tech opportunities used to be scattered across LinkedIn, Telegram groups, and university
+              word-of-mouth. Nabdh filters it all down to what actually matters to me in AI."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">YB</div>
+              <div>
+                <div class="author-name">Yassine Belhadj</div>
+                <div class="author-role">CS Student @ INSAT</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "The AI relevance reasoning is genuine — it knows I'm looking for cloud and DevOps roles in Tunis or
+              Sousse, and highlights upcoming study jams I would have missed."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">SM</div>
+              <div>
+                <div class="author-name">Sarra Mansour</div>
+                <div class="author-role">Junior Cloud Engineer</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "Watching the feed re-rank itself on a timer as my feedback changes makes this feel alive. It's become my
+              daily startup page."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">MT</div>
+              <div>
+                <div class="author-name">Mehdi Trabelsi</div>
+                <div class="author-role">Full-Stack Developer, Sfax</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final CTA -->
+      <section class="landing-cta">
+        <h2>Ready to feel the pulse of Tunisian tech?</h2>
+        <p>Join fellow students, job seekers, and engineers across Tunisia today.</p>
+        <button type="button" class="btn-primary btn-cta" id="footer-cta-signup-btn">
+          <span>Get started for free</span>
+        </button>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+      <div class="footer-copy">Nabdh. The Pulse of Tunisian Tech, Personalized.</div>
+      <div class="footer-tags">Built with Google Gemini AI for GOMYCODE Hackathon</div>
+    </footer>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 2. AUTH MODAL (LOGIN & MULTI-STEP REGISTER)         -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="auth-modal-overlay" class="auth-modal-overlay">
+    <div class="auth-modal-container">
+      <button type="button" class="auth-close-btn" id="auth-close-btn" title="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+
+      <!-- ── LOGIN VIEW ──────────────────────────────── -->
+      <div id="login-view" class="auth-view active">
+        <div class="auth-view-header">
+          <div class="auth-logo-badge">
+            <svg viewBox="0 0 48 48" fill="none" class="auth-logo-svg" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="24" r="18" stroke="url(#pulse-grad2)" stroke-width="2" opacity="0.5" />
+              <circle cx="24" cy="24" r="7" fill="url(#pulse-grad2)" opacity="0.9" />
+              <path d="M8 24 C8 24 14 16 20 24 C26 32 32 16 38 24" stroke="url(#pulse-grad2)" stroke-width="2.5"
+                stroke-linecap="round" fill="none" />
+              <defs>
+                <linearGradient id="pulse-grad2" x1="0" y1="0" x2="48" y2="48">
+                  <stop offset="0%" stop-color="#00e5a0" />
+                  <stop offset="100%" stop-color="#00d4ff" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <h2>Welcome back</h2>
+          <p>Log in to access your personalized feed.</p>
+        </div>
+
+        <form id="login-form" class="auth-form" autocomplete="off">
+          <div class="form-row-2col">
+            <div class="form-group">
+              <label for="login-name">First Name</label>
+              <input type="text" id="login-name" placeholder="Ahmed" required />
+            </div>
+            <div class="form-group">
+              <label for="login-surname">Surname</label>
+              <input type="text" id="login-surname" placeholder="Ben Salem" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="ahmed.dev@insat.tn" required />
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="Enter your password" required />
+          </div>
+
+          <button type="submit" class="btn-primary btn-auth-submit">
+            <span>Log in</span>
+          </button>
+
+          <div class="auth-divider">
+            <span>or quick demo</span>
+          </div>
+
+          <!-- Quick One-Click Demo Logins -->
+          <div class="demo-login-row">
+            <button type="button" class="btn-demo-quick" id="demo-student-login">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                <path d="M6 12v5c3 3 9 3 12 0v-5" />
+              </svg>
+              <span>Demo CS Student</span>
+            </button>
+            <button type="button" class="btn-demo-quick" id="demo-cloud-login">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+              </svg>
+              <span>Demo Cloud Dev</span>
+            </button>
+          </div>
+
+          <p class="auth-switch-text">
+            Don't have an account? <button type="button" class="btn-inline-link" id="switch-to-register-btn">Sign up
+              now</button>
+          </p>
+        </form>
+      </div>
+
+      <!-- ── REGISTER MULTI-STEP VIEW ────────────────── -->
+      <div id="register-view" class="auth-view">
+        <div class="auth-view-header">
+          <div class="auth-logo-badge">
+            <svg viewBox="0 0 48 48" fill="none" class="auth-logo-svg" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="24" cy="24" r="18" stroke="url(#pulse-grad2)" stroke-width="2" opacity="0.5" />
+              <circle cx="24" cy="24" r="7" fill="url(#pulse-grad2)" opacity="0.9" />
+              <path d="M8 24 C8 24 14 16 20 24 C26 32 32 16 38 24" stroke="url(#pulse-grad2)" stroke-width="2.5"
+                stroke-linecap="round" fill="none" />
+            </svg>
+          </div>
+          <h2>Create your account</h2>
+          <p id="register-step-title">Step 1 of 2 — Personal Details</p>
+        </div>
+
+        <!-- Step Indicator -->
+        <div class="step-progress-bar">
+          <div class="step-progress-segment active" id="step-seg-1"></div>
+          <div class="step-progress-segment" id="step-seg-2"></div>
+        </div>
+
+        <form id="register-form" class="auth-form" autocomplete="off" novalidate>
+          <!-- STEP 1: Personal Info -->
+          <div id="reg-step-1" class="register-step active">
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label for="reg-name">First Name</label>
+                <input type="text" id="reg-name" placeholder="Ahmed" />
+              </div>
+              <div class="form-group">
+                <label for="reg-surname">Surname</label>
+                <input type="text" id="reg-surname" placeholder="Ben Salem" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-email">Email Address</label>
+              <input type="email" id="reg-email" placeholder="ahmed@gmail.com" />
+            </div>
+
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label for="reg-phone">Phone Number</label>
+                <input type="tel" id="reg-phone" placeholder="+216 98 123 456" />
+              </div>
+              <div class="form-group">
+                <label>Country</label>
+                <div class="custom-select" id="reg-country-select" data-value="Tunisia">
+                  <div class="custom-select__trigger">
+                    <span class="custom-select__text">Tunisia</span>
+                    <svg class="custom-select__arrow" width="10" height="6" viewBox="0 0 10 6">
+                      <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"
+                        stroke-linecap="round" />
+                    </svg>
+                  </div>
+                  <div class="custom-select__dropdown">
+                    <div class="custom-select__option selected" data-val="Tunisia">Tunisia</div>
+                    <div class="custom-select__option" data-val="Algeria">Algeria</div>
+                    <div class="custom-select__option" data-val="Morocco">Morocco</div>
+                    <div class="custom-select__option" data-val="Libya">Libya</div>
+                    <div class="custom-select__option" data-val="Egypt">Egypt</div>
+                    <div class="custom-select__option" data-val="France">France</div>
+                    <div class="custom-select__option" data-val="Germany">Germany</div>
+                    <div class="custom-select__option" data-val="Canada">Canada</div>
+                    <div class="custom-select__option" data-val="UAE">UAE</div>
+                    <div class="custom-select__option" data-val="Saudi Arabia">Saudi Arabia</div>
+                    <div class="custom-select__option" data-val="USA">USA</div>
+                    <div class="custom-select__option" data-val="UK">UK</div>
+                    <div class="custom-select__option" data-val="Other">Other</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-address">Address / City</label>
+              <input type="text" id="reg-address" placeholder="e.g. Les Berges du Lac, Tunis" />
+            </div>
+
+            <button type="button" class="btn-primary" id="btn-next-step">
+              <span>Next: Role & Interests</span>
+            </button>
+          </div>
+
+          <!-- STEP 2: Role, Interests & Live Feed -->
+          <div id="reg-step-2" class="register-step">
+            <div class="form-group">
+              <label>Current Occupation / Role</label>
+              <div class="custom-select" id="reg-role-select" data-value="">
+                <div class="custom-select__trigger">
+                  <span class="custom-select__text placeholder-text">Select your current role</span>
+                  <svg class="custom-select__arrow" width="10" height="6" viewBox="0 0 10 6">
+                    <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"
+                      stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="custom-select__dropdown">
+                  <div class="custom-select__option" data-val="CS student">CS / IT Student</div>
+                  <div class="custom-select__option" data-val="Engineering student">Engineering Student</div>
+                  <div class="custom-select__option" data-val="Job seeker">Job Seeker</div>
+                  <div class="custom-select__option" data-val="Junior developer">Junior Developer</div>
+                  <div class="custom-select__option" data-val="Intern">Intern</div>
+                  <div class="custom-select__option" data-val="Freelancer">Freelance Engineer</div>
+                  <div class="custom-select__option" data-val="Professional">Tech Professional</div>
+                  <div class="custom-select__option" data-val="Researcher">Researcher / Academic</div>
+                  <div class="custom-select__option" data-val="Entrepreneur">Entrepreneur / Founder</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Your Tech Interests</label>
+              <p class="form-subtext">Select all that apply — the AI uses these to rank your feed.</p>
+              <div id="reg-interest-grid" class="tag-selector-grid">
+                <!-- Tags injected by JS -->
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Live Feed Auto-Sync Interval</label>
+              <div class="custom-select" id="reg-refresh-select" data-value="25">
+                <div class="custom-select__trigger">
+                  <span class="custom-select__text">25 seconds (Demo Mode)</span>
+                  <svg class="custom-select__arrow" width="10" height="6" viewBox="0 0 10 6">
+                    <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none"
+                      stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="custom-select__dropdown">
+                  <div class="custom-select__option selected" data-val="25">25 seconds (Demo Mode)</div>
+                  <div class="custom-select__option" data-val="60">1 minute</div>
+                  <div class="custom-select__option" data-val="300">5 minutes</div>
+                  <div class="custom-select__option" data-val="900">15 minutes</div>
+                  <div class="custom-select__option" data-val="3600">1 hour</div>
+                  <div class="custom-select__option" data-val="86400">24 hours</div>
+                </div>
+              </div>
+              <p class="form-subtext">The feed re-ranks on this interval automatically.</p>
+            </div>
+
+            <div class="step-nav-buttons">
+              <button type="button" class="btn-secondary" id="btn-back-step">
+                Back
+              </button>
+              <button type="submit" class="btn-primary" id="btn-finish-register">
+                <span>Launch My Feed</span>
+              </button>
+            </div>
+          </div>
+
+          <p class="auth-switch-text">
+            Already have an account? <button type="button" class="btn-inline-link" id="switch-to-login-btn">Log in
+              directly</button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 3. MAIN APP FEED SHELL                              -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="app-layout" id="app-layout">
+
+    <!-- ── LEFT NAVIGATION RAIL ──────────────────────── -->
+    <aside class="sidebar-left">
+      <div class="sidebar-brand">
+        <div class="brand-logo-small" id="brand-logo-home" role="button" title="Back to Home" style="cursor: pointer;">
+          <span class="pulse-dot"></span>
+          <span class="brand-logo-text">Nabdh</span>
+        </div>
+      </div>
+
+      <nav class="nav-section">
+        <div class="nav-label">DISCOVER</div>
+        <button class="nav-item active" data-view="feed">
+          <svg class="nav-svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+          </svg>
+          <span class="nav-text">My Feed</span>
+          <span class="nav-tag" id="feed-count-badge">18</span>
+        </button>
+        <button class="nav-item" data-view="popular">
+          <svg class="nav-svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+          </svg>
+          <span class="nav-text">Popular</span>
+        </button>
+        <button class="nav-item" data-view="recent">
+          <svg class="nav-svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <span class="nav-text">Recent</span>
+        </button>
+        <button class="nav-item" data-view="bookmarks">
+          <svg class="nav-svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+          </svg>
+          <span class="nav-text">Bookmarks</span>
+          <span class="nav-tag tag-subtle" id="bookmark-count-badge">0</span>
+        </button>
+      </nav>
+
+      <div class="nav-section">
+        <div class="nav-label">TUNISIAN SQUADS</div>
+        <div class="squads-list" id="squads-nav">
+          <!-- Squads injected by JS -->
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-label">POPULAR TAGS</div>
+        <div class="sidebar-tags" id="sidebar-tags">
+          <button class="mini-tag" data-tag="AI">#AI</button>
+          <button class="mini-tag" data-tag="cloud">#cloud</button>
+          <button class="mini-tag" data-tag="internship">#internship</button>
+          <button class="mini-tag" data-tag="fintech">#fintech</button>
+          <button class="mini-tag" data-tag="DevOps">#DevOps</button>
+          <button class="mini-tag" data-tag="robotics">#robotics</button>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="user-card" id="user-profile-widget">
+          <div class="user-avatar" id="user-avatar-initial">AB</div>
+          <div class="user-info">
+            <span class="user-role" id="user-name-display">Ahmed Ben Salem</span>
+            <span class="user-interests-count" id="user-role-display">CS Student</span>
+          </div>
+          <button class="btn-icon" id="quick-logout-btn" title="Log out">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── CENTER CONTENT STREAM ──────────────────────── -->
+    <main class="feed-center">
+      <!-- Top Bar -->
+      <header class="top-nav">
+        <div class="search-bar">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input type="text" id="search-input" placeholder="Search Tunisian tech news, jobs, events..." />
+          <span class="search-shortcut">/</span>
+        </div>
+
+        <div class="top-nav-actions">
+          <!-- Auto-sync radial indicator -->
+          <div class="sync-widget" id="sync-widget" title="AI Auto-refresh countdown">
+            <svg class="sync-ring" viewBox="0 0 36 36">
+              <circle class="sync-ring__bg" cx="18" cy="18" r="16" />
+              <circle class="sync-ring__bar" cx="18" cy="18" r="16" id="sync-progress-bar" />
+            </svg>
+            <span class="sync-number" id="sync-countdown-text">25</span>
+          </div>
+
+          <button id="manual-refresh-btn" class="action-btn" title="Refresh feed now">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <polyline points="23 4 23 10 17 10" />
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+            </svg>
+          </button>
+
+          <!-- Back to Welcome Page Button -->
+          <button id="exit-to-welcome-btn" class="action-btn" title="Welcome page">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Subheader Filters & Stats -->
+      <div class="feed-subbar">
+        <div class="content-pills" id="type-pills">
+          <button class="pill-btn active" data-type="all">All</button>
+          <button class="pill-btn" data-type="news">News</button>
+          <button class="pill-btn" data-type="job">Jobs</button>
+          <button class="pill-btn" data-type="internship">Internships</button>
+          <button class="pill-btn" data-type="event">Events</button>
+        </div>
+
+        <div class="feed-meta-stats" id="active-squad-badge">
+          <span>Feed: <strong id="current-view-title">Personalized Pulse</strong></span>
+        </div>
+      </div>
+
+      <!-- Real-time AI Status Banner -->
+      <div id="ai-status-banner" class="ai-status-strip">
+        <div class="status-left">
+          <span class="status-indicator-dot"></span>
+          <span id="ai-status-message">Ranked by Gemini AI</span>
+        </div>
+        <div class="status-right" id="ai-model-tag">gemini-2.0-flash</div>
+      </div>
+
+      <!-- Feed Grid -->
+      <div class="cards-stream" id="cards-container">
+        <!-- Cards rendered here by JS -->
+      </div>
+
+      <div id="empty-feed" class="empty-feed-placeholder hidden">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="1.5">
+          <circle cx="11" cy="11" r="8" />
+          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+        </svg>
+        <h3>No matching opportunities found</h3>
+        <p>Try switching to "All" or choosing another tag filter.</p>
+      </div>
+    </main>
+
+    <!-- ── RIGHT CONTEXT RAIL (Widgets & Trending) ─────── -->
+    <aside class="sidebar-right">
+
+      <!-- Trending in Tunisian Tech -->
+      <div class="widget-card">
+        <div class="widget-header">
+          <div class="widget-title">
+            <svg class="widget-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+            </svg>
+            <span>Trending in Tunisia</span>
+          </div>
+        </div>
+        <div class="trending-list" id="trending-container">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <!-- Upcoming Events Radar -->
+      <div class="widget-card">
+        <div class="widget-header">
+          <div class="widget-title">
+            <svg class="widget-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+            <span>Upcoming Tech Events</span>
+          </div>
+        </div>
+        <div class="events-mini-list" id="upcoming-events-container">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <!-- Developer Activity Streak -->
+      <div class="widget-card streak-card">
+        <div class="streak-header">
+          <span class="streak-flame">🔥</span>
+          <div>
+            <div class="streak-title">3-Day Discovery Streak</div>
+            <div class="streak-desc">You're staying ahead of Tunisian tech</div>
+          </div>
+        </div>
+        <div class="streak-days">
+          <span class="streak-day done">M</span>
+          <span class="streak-day done">T</span>
+          <span class="streak-day done">W</span>
+          <span class="streak-day active">T</span>
+          <span class="streak-day">F</span>
+          <span class="streak-day">S</span>
+          <span class="streak-day">S</span>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 4. CARD DETAIL POPUP                                -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div id="card-detail-overlay" class="card-detail-overlay">
+    <div class="card-detail-modal">
+      <button type="button" class="card-detail-close" id="card-detail-close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+
+      <div class="card-detail-header">
+        <span class="card-detail-type" id="detail-type">NEWS</span>
+        <span class="card-detail-score" id="detail-score">98% fit</span>
+      </div>
+
+      <h2 class="card-detail-title" id="detail-title">Title</h2>
+
+      <div class="card-detail-meta" id="detail-meta">
+        <span class="detail-source" id="detail-source">Source</span>
+        <span class="detail-bullet">&middot;</span>
+        <span id="detail-location">Location</span>
+        <span class="detail-bullet">&middot;</span>
+        <span id="detail-date">Date</span>
+      </div>
+
+      <p class="card-detail-desc" id="detail-desc">Description</p>
+
+      <div class="card-detail-ai-reason" id="detail-reason-block">
+        <div class="detail-reason-label">AI Reasoning</div>
+        <p class="detail-reason-text" id="detail-reason">Reason text</p>
+      </div>
+
+      <div class="card-detail-tags" id="detail-tags">
+        <!-- Tags injected -->
+      </div>
+
+      <div class="card-detail-actions">
+        <a href="#" target="_blank" rel="noopener" class="btn-primary card-detail-link" id="detail-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+            <polyline points="15 3 21 3 21 9" />
+            <line x1="10" y1="14" x2="21" y2="3" />
+          </svg>
+          <span>Open Full Article</span>
+        </a>
+        <button type="button" class="btn-secondary card-detail-bookmark" id="detail-bookmark-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+          </svg>
+          <span>Bookmark</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
