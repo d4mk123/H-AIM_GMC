@@ -1,48 +1,54 @@
 /* ══════════════════════════════════════════════════════════════════
-   6. GEMINI AI RANKING
+   6. BACKEND AI RANKING (POST /rank)
+   The model call happens on the server, where the API key lives.
    ══════════════════════════════════════════════════════════════════ */
-function buildSystemPrompt() {
-  return `You are a content-ranking AI for Nabdh, a Tunisian tech feed app.
-You will receive a user profile and a list of content items (tech news, job postings, internships, and events — all Tunisia-based).
 
-Your job:
-1. Rank ALL items from most to least relevant for this specific user.
-2. For each item, write a SHORT one-line reason (max 15 words).
-3. Assign a relevance score from 0 to 100.
+// Item tags are short slugs (ai, cloud, startups) while profile interests are
+// readable labels ("AI & Machine Learning"). Map the labels back to tags so the
+// server's exact-match pre-filter actually selects the closest items; the raw
+// labels are still sent for the model to reason about.
+const SEED_TAGS = ["ai", "ml", "cloud", "fintech", "cybersecurity", "data engineering", "startups"];
 
-Output ONLY valid JSON array:
-[{ "id": "<item id>", "score": <0-100>, "reason": "<one-line reason>" }, ...]
-
-Rules:
-- Rank ALL items. Match interests semantically. Keep reasons conversational.
-- Consider skill levels: "Just starting" users want learning resources; "Could teach it" users want advanced/expert content.`;
+function interestsToTags(interests) {
+  const out = new Set();
+  for (const raw of interests || []) {
+    const label = String(raw).toLowerCase().trim();
+    if (!label) continue;
+    for (const tag of SEED_TAGS) {
+      if (label.includes(tag) || tag.includes(label)) out.add(tag);
+    }
+    if (label.includes("machine learning") || label.includes("data science")) out.add("ml");
+    if (label.includes("data")) out.add("data engineering");
+  }
+  return [...out];
 }
 
-function buildUserPrompt(profile, items, feedback) {
-  const profileStr = JSON.stringify({
-    occupation: profile.occupation,
-    interests: profile.interests,
-    skillLevels: profile.skillLevels || {},
-    feedback_history: feedback || [],
-  });
-  const cleanItems = items.map(({ score, reason, ...rest }) => rest);
-  return `USER PROFILE:\n${profileStr}\n\nCONTENT ITEMS:\n${JSON.stringify(cleanItems)}`;
-}
-
-async function callGeminiAPI(systemPrompt, userPrompt) {
-  if (!GEMINI_API_KEY) throw new Error("Gemini API key is not configured");
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
-  const body = {
-    system_instruction: { parts: [{ text: systemPrompt }] },
-    contents: [{ role: "user", parts: [{ text: userPrompt }] }],
-    generationConfig: { temperature: 0.3, maxOutputTokens: 4096, topP: 0.9, responseMimeType: "application/json" },
+function buildRankRequestBody(profile) {
+  const labels = Array.isArray(profile.interests) ? profile.interests : [];
+  return {
+    profile: {
+      name: [profile.name, profile.surname].filter(Boolean).join(" ") || null,
+      occupation: profile.occupation || null,
+      interests: [...new Set([...labels, ...interestsToTags(labels)])],
+    },
   };
-  const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-  if (!res.ok) throw new Error(`Gemini API ${res.status}: ${await res.text()}`);
-  const data = await res.json();
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
-  if (!text) throw new Error("Empty response from Gemini");
-  return text;
+}
+
+async function callRankApi(profile) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 30000);
+  try {
+    const res = await fetch("/rank", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(buildRankRequestBody(profile)),
+      signal: controller.signal,
+    });
+    if (!res.ok) throw new Error(`rank endpoint responded ${res.status}`);
+    return await res.json();
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 async function rankFeed() {
@@ -51,20 +57,30 @@ async function rankFeed() {
   aiStatusMessage.textContent = "AI reasoning over your profile...";
 
   try {
-    const raw = await callGeminiAPI(buildSystemPrompt(), buildUserPrompt(state.profile, state.items, state.feedback));
-    const ranked = JSON.parse(raw.trim());
-    if (!Array.isArray(ranked)) throw new Error("Not a JSON array");
+    const data = await callRankApi(state.profile);
+    if (!data || !Array.isArray(data.items) || data.items.length === 0) {
+      throw new Error("rank endpoint returned no items");
+    }
 
+    // Keep our own item objects (link/date/description) and attach the scores.
     const itemMap = new Map(state.items.map((it) => [it.id, it]));
-    const result = ranked.filter((r) => itemMap.has(r.id)).map((r) => ({ ...itemMap.get(r.id), score: r.score, reason: r.reason }));
+    const result = data.items
+      .filter((r) => itemMap.has(r.id))
+      .map((r) => ({ ...itemMap.get(r.id), score: r.score, reason: r.reason }));
     for (const item of state.items) {
       if (!result.find((r) => r.id === item.id)) {
         result.push({ ...item, score: 5, reason: "Not directly related to your current focus" });
       }
     }
     state.rankedFeed = result;
-    aiStatusMessage.textContent = `Ranked by Gemini AI for ${state.profile.name}`;
-    aiModelTag.textContent = GEMINI_MODEL;
+
+    if (data.source === "model") {
+      aiStatusMessage.textContent = `Ranked by AI for ${state.profile.name}`;
+      aiModelTag.textContent = data.model || "backend-model";
+    } else {
+      aiStatusMessage.textContent = "Tag-based ranking (AI unavailable)";
+      aiModelTag.textContent = data.fallbackReason || "backend-fallback";
+    }
   } catch (err) {
     console.error("AI rank failed:", err);
     state.rankedFeed = clientFallbackRank();

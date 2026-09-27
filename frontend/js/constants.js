@@ -1,8 +1,6 @@
 /* ══════════════════════════════════════════════════════════════════
    1. CONFIG & STATIC DATA
    ══════════════════════════════════════════════════════════════════ */
-const GEMINI_API_KEY = (window.__NABDH_GEMINI_API_KEY || "").trim();
-const GEMINI_MODEL = "gemini-2.0-flash";
 
 const INTEREST_OPTIONS = [
   "AI & Machine Learning",
@@ -96,8 +94,20 @@ const $ = (sel) => document.querySelector(sel); const $$ = (sel) => document.que
 
 function formatDate(dateStr) {
   if (!dateStr) return "Recent";
-  try { return new Date(dateStr).toLocaleDateString("en-GB", { day: "numeric", month: "short" }); }
-  catch { return dateStr; }
+  const raw = String(dateStr).trim();
+  const parsed = new Date(raw);
+  if (!Number.isNaN(parsed.getTime())) {
+    return parsed.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  }
+  // Seed news dates are truncated RFC-822 strings ("Thu, 24 Se"), which yield an
+  // Invalid Date. Recover day + month instead of rendering "Invalid Date".
+  const partial = raw.match(/^[A-Za-z]{3},\s*(\d{1,2})\s+([A-Za-z]{2})/);
+  if (partial) {
+    const MONTHS = { Ja: "Jan", Fe: "Feb", Ma: "Mar", Ap: "Apr", Au: "Aug", Se: "Sep", Oc: "Oct", No: "Nov", De: "Dec" };
+    const month = MONTHS[partial[2]] || partial[2]; // "Ju" stays "Ju" (Jun/Jul ambiguous)
+    return `${Number(partial[1])} ${month}`;
+  }
+  return raw;
 }
 
 function escapeHtml(str) {

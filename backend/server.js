@@ -7,9 +7,11 @@ import { repoRoot } from './config.js';
 import { closePool, DbUnavailableError, isConfigured as isDbConfigured } from './db/pool.js';
 import { migrate } from './db/migrate.js';
 import { importSeedItems } from './db/seed.js';
+import briefRouter from './routes/brief.js';
 import feedbackRouter from './routes/feedback.js';
 import profilesRouter from './routes/profiles.js';
 import rankRouter from './routes/rank.js';
+import searchRouter from './routes/search.js';
 
 export function createApp() {
   const app = express();
@@ -27,6 +29,8 @@ export function createApp() {
   });
 
   app.use(rankRouter);
+  app.use(searchRouter);
+  app.use(briefRouter);
   app.use(profilesRouter);
   app.use(feedbackRouter);
 

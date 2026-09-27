@@ -4,10 +4,28 @@ import { query, DbUnavailableError } from './pool.js';
 
 const SEED_PATH = fileURLToPath(new URL('../../frontend/seed_items.json', import.meta.url));
 
+// The seed file uses link/date/location (matching the frontend cards), while
+// the database and every API response use url/publishedAt/city. Normalising
+// here keeps the importer and the /rank + /search fallbacks consistent.
+function normalizeSeedItem(item) {
+  const tags = Array.isArray(item.tags)
+    ? item.tags.filter((tag) => typeof tag === 'string' && tag.trim())
+    : [];
+  return {
+    ...item,
+    summary: item.summary ?? item.description ?? '',
+    url: item.url || item.link || '',
+    publishedAt: item.publishedAt ?? item.date ?? null,
+    city: item.city ?? item.location ?? null,
+    origin: item.origin ?? 'seed',
+    tags,
+  };
+}
+
 export function loadSeedItems() {
   const raw = JSON.parse(readFileSync(SEED_PATH, 'utf8'));
   if (!Array.isArray(raw)) throw new Error('seed_items.json must contain an array');
-  return raw;
+  return raw.map(normalizeSeedItem);
 }
 
 const COLUMNS = 'id, type, title, summary, source, url, published_at, city, tags, origin';

@@ -12,6 +12,7 @@ process.env.AI_BASE_URL = 'http://127.0.0.1:9/v1';
 process.env.RANK_CACHE = '0';
 
 const { createApp } = await import('../server.js');
+const { loadSeedItems } = await import('../db/seed.js');
 
 let server;
 let base;
@@ -49,12 +50,17 @@ test('GET /health reports ok with unconfigured database', async () => {
   assert.equal(body.db, 'unconfigured');
 });
 
-test('GET / without a built frontend returns the API info page', async () => {
+test('GET / serves the frontend, or the API info page when there is none', async () => {
   const res = await fetch(`${base}/`);
   assert.equal(res.status, 200);
-  const body = await res.json();
-  assert.equal(body.service, 'nabdh-backend');
-  assert.ok(Array.isArray(body.endpoints));
+  const type = res.headers.get('content-type') || '';
+  if (type.includes('text/html')) {
+    assert.ok((await res.text()).length > 0, 'frontend page is not empty');
+  } else {
+    const body = await res.json();
+    assert.equal(body.service, 'nabdh-backend');
+    assert.ok(Array.isArray(body.endpoints));
+  }
 });
 
 test('forced fallback ranks by tag overlap and keeps every item', async () => {
@@ -77,14 +83,20 @@ test('forced fallback ranks by tag overlap and keeps every item', async () => {
   assert.equal(typeof body.tookMs, 'number');
 });
 
-test('no items supplied in degraded mode loads the 18 seed items', async () => {
+test('no items supplied in degraded mode loads every seed item', async () => {
   const res = await withEnv({ RANK_FORCE_FALLBACK: '1' }, () =>
     post('/rank', { profile: { interests: ['ai'] } }),
   );
   assert.equal(res.status, 200);
   const body = await res.json();
   assert.equal(body.source, 'fallback');
-  assert.equal(body.items.length, 18);
+  assert.equal(body.items.length, loadSeedItems().length);
+  // Seed items keep their original link/date alongside the canonical fields.
+  for (const item of body.items) {
+    assert.equal(typeof item.url, 'string');
+    assert.ok(item.url.length > 0, `seed item ${item.id} lost its link`);
+    assert.ok(item.publishedAt, `seed item ${item.id} lost its date`);
+  }
 });
 
 test('model path returns source=model with the model order', async () => {

@@ -583,6 +583,11 @@
           <span class="nav-text">Bookmarks</span>
           <span class="nav-tag tag-subtle" id="bookmark-count-badge">0</span>
         </button>
+        <button class="nav-item" data-view="brief">
+          <svg class="nav-svg-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span class="nav-text">Weekly Brief</span>
+        </button>
       </nav>
 
       <div class="nav-section">
@@ -683,9 +688,9 @@
       <div id="ai-status-banner" class="ai-status-strip">
         <div class="status-left">
           <span class="status-indicator-dot"></span>
-          <span id="ai-status-message">Ranked by Gemini AI</span>
+          <span id="ai-status-message">Ranking your feed…</span>
         </div>
-        <div class="status-right" id="ai-model-tag">gemini-2.0-flash</div>
+        <div class="status-right" id="ai-model-tag">backend</div>
       </div>
 
       <!-- Feed Grid -->
@@ -701,6 +706,9 @@
         <h3>No matching opportunities found</h3>
         <p>Try switching to "All" or choosing another tag filter.</p>
       </div>
+
+      <!-- Weekly Brief view (rendered by JS) -->
+      <div id="brief-view" class="brief-view hidden"></div>
     </main>
 
     <!-- ── RIGHT CONTEXT RAIL (Widgets & Trending) ─────── -->
@@ -822,11 +830,16 @@
     </div>
   </div>
 
-  <script>
-    // Set this at runtime (for example via server-side templating). Leave blank in source control.
-    window.__NABDH_GEMINI_API_KEY = window.__NABDH_GEMINI_API_KEY || "";
-  </script>
-  <script src="app.js"></script>
+  <!-- Modules are plain scripts sharing globals: order matters. -->
+  <script src="js/constants.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/dom.js"></script>
+  <script src="js/ui-widgets.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ai-ranking.js"></script>
+  <script src="js/card-detail.js"></script>
+  <script src="js/feed.js"></script>
+  <script src="js/bootstrap.js"></script>
 </body>
 
 </html>

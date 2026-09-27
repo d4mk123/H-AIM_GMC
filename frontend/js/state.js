@@ -24,6 +24,8 @@ const state = {
   activeType: "all",
   activeSquad: "all",
   searchQuery: "",
+  searchedItems: [],
+  brief: null,
   isRanking: false,
   countdown: 25,
   countdownTimer: null,

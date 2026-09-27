@@ -1,4 +1,5 @@
-const DEFAULT_MODEL = 'deepseek-v4.1-flash';
+const DEFAULT_MODEL = 'nvidia/nemotron-3-ultra-550b-a55b';
+const DEFAULT_GROQ_MODEL = 'openai/gpt-oss-120b';
 
 export class ProviderError extends Error {
   constructor(message, status = 0, extra = {}) {
@@ -24,7 +25,25 @@ export class MalformedResponseError extends Error {
 }
 
 export function isConfigured() {
-  return Boolean(process.env.NVIDIA_API_KEY);
+  return Boolean(process.env.NVIDIA_API_KEY || process.env.GROQ_API_KEY);
+}
+
+// Without an explicit AI_BASE_URL the provider is inferred from the key that is
+// set, so a Groq-only .env works without also configuring the endpoint.
+function defaultBaseUrl() {
+  return !process.env.NVIDIA_API_KEY && process.env.GROQ_API_KEY
+    ? 'https://api.groq.com/openai/v1'
+    : 'https://integrate.api.nvidia.com/v1';
+}
+
+// Provider first: a Groq endpoint must not be sent an NVIDIA model id (404).
+function resolveModel(baseUrl) {
+  const onGroq = baseUrl.includes('groq.com');
+  const explicit = onGroq
+    ? process.env.GROQ_MODEL || process.env.AI_MODEL || process.env.NVIDIA_MODEL
+    : process.env.NVIDIA_MODEL || process.env.AI_MODEL || process.env.GROQ_MODEL;
+  if (explicit) return explicit;
+  return onGroq ? DEFAULT_GROQ_MODEL : DEFAULT_MODEL;
 }
 
 // Keep this system prompt stable: it is the caching anchor on provider side.
@@ -72,10 +91,10 @@ function parseLooseJson(content) {
 export async function chatJson(messages, { jsonMode = false } = {}) {
   const apiKey = process.env.NVIDIA_API_KEY || process.env.GROQ_API_KEY;
   if (!apiKey) {
-    throw new ProviderError('AI provider is not configured (NVIDIA_API_KEY missing)', 0, { code: 'not_configured' });
+    throw new ProviderError('AI provider is not configured (NVIDIA_API_KEY or GROQ_API_KEY missing)', 0, { code: 'not_configured' });
   }
-  const baseUrl = String(process.env.AI_BASE_URL || 'https://integrate.api.nvidia.com/v1').replace(/\/+$/, '');
-  const model = process.env.NVIDIA_MODEL || process.env.AI_MODEL || DEFAULT_MODEL;
+  const baseUrl = String(process.env.AI_BASE_URL || defaultBaseUrl()).replace(/\/+$/, '');
+  const model = resolveModel(baseUrl);
   const timeoutMs = Number(process.env.AI_TIMEOUT_MS || 8000);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -200,4 +219,99 @@ export async function rankItems(profile = {}, items = []) {
   });
 
   return { model, rankings: ordered };
+}
+
+// Keep this system prompt stable: it is the caching anchor on provider side.
+const SYSTEM_BRIEF_PROMPT = `You are Nabdh, the weekly career-briefing engine of a Tunisian technology feed.
+Given one user profile and this week's content items, produce a practical weekly brief.
+
+Rules:
+- Use only the profile and the item fields provided. Do not invent items or facts.
+- trends: 3 to 6 objects {"tag":"...","mentions":<integer>} derived from the items.
+- skills: 3 to 6 objects a reader could act on this week, each shaped as:
+  {"name":"...","why":"one sentence tied to the profile interests","interests":["..."],
+   "sources":["item id"],"roadmap":["4 to 6 ordered concrete steps"],
+   "milestones":["2 to 4 checkpoints"],"checklist":["3 to 5 short trackable tasks"]}
+- "interests" must reuse profile interest tags when they match; "sources" must be real item ids.
+- headline: one sentence summarising the week for this profile.
+- Respond with JSON only, in exactly this shape:
+{"headline":"...","trends":[{"tag":"ai","mentions":4}],"skills":[{"name":"...","why":"...","interests":[],"sources":[],"roadmap":[],"milestones":[],"checklist":[]}]}`;
+
+function stringList(value, maxItems, maxLen) {
+  if (!Array.isArray(value)) return [];
+  const out = [];
+  for (const entry of value) {
+    if (typeof entry !== 'string' || !entry.trim()) continue;
+    out.push(entry.trim().slice(0, maxLen));
+    if (out.length >= maxItems) break;
+  }
+  return out;
+}
+
+function normalizeBrief(raw, period) {
+  if (!raw || typeof raw !== 'object') {
+    throw new MalformedResponseError('AI brief response is not an object');
+  }
+
+  const skills = (Array.isArray(raw.skills) ? raw.skills : [])
+    .filter((entry) => entry && typeof entry === 'object' && typeof entry.name === 'string' && entry.name.trim())
+    .slice(0, 6)
+    .map((entry) => ({
+      name: entry.name.trim().slice(0, 120),
+      why: typeof entry.why === 'string' ? entry.why.trim().slice(0, 400) : '',
+      interests: stringList(entry.interests, 10, 60),
+      sources: stringList(entry.sources, 10, 120),
+      roadmap: stringList(entry.roadmap, 8, 200),
+      milestones: stringList(entry.milestones, 5, 200),
+      checklist: stringList(entry.checklist, 6, 160),
+    }));
+
+  if (skills.length === 0) {
+    throw new MalformedResponseError('AI brief response has no usable skills');
+  }
+
+  const trends = (Array.isArray(raw.trends) ? raw.trends : [])
+    .filter((entry) => entry && typeof entry.tag === 'string' && entry.tag.trim())
+    .slice(0, 6)
+    .map((entry) => ({
+      tag: entry.tag.trim().slice(0, 60),
+      mentions: Number.isFinite(Number(entry.mentions)) ? Math.max(0, Math.round(Number(entry.mentions))) : 0,
+    }));
+
+  return {
+    period,
+    headline: typeof raw.headline === 'string' && raw.headline.trim()
+      ? raw.headline.trim().slice(0, 300)
+      : 'Your weekly Nabdh brief',
+    trends,
+    skills,
+  };
+}
+
+export async function generateBrief(profile = {}, items = [], period = '') {
+  const payload = {
+    period,
+    profile: {
+      occupation: profile.occupation ?? null,
+      interests: Array.isArray(profile.interests) ? profile.interests : [],
+    },
+    items: items.map((item) => ({
+      id: item.id,
+      type: item.type,
+      title: truncate(item.title, 200),
+      summary: truncate(item.summary, 240),
+      tags: item.tags ?? [],
+      publishedAt: item.publishedAt ?? null,
+    })),
+  };
+
+  const { content, model } = await chatJson(
+    [
+      { role: 'system', content: SYSTEM_BRIEF_PROMPT },
+      { role: 'user', content: JSON.stringify(payload) },
+    ],
+    { jsonMode: true },
+  );
+
+  return { brief: normalizeBrief(parseLooseJson(content), period), model };
 }

@@ -71,7 +71,11 @@ function renderUpcomingEvents() {
 }
 
 function renderFeed() {
-  let displayList = [...state.rankedFeed];
+  const briefView = document.getElementById('brief-view');
+  if (briefView) briefView.classList.add('hidden');
+  if (cardsContainer) cardsContainer.classList.remove('hidden');
+  if (state.activeView === "brief") { renderBrief(); return; }
+  let displayList = [...(state.searchedItems.length ? state.searchedItems : state.rankedFeed)];
 
   if (state.activeView === "popular") {
     displayList.sort((a, b) => (state.upvotes[b.id] || 0) - (state.upvotes[a.id] || 0));
@@ -164,7 +168,7 @@ navItems.forEach((btn) => {
     navItems.forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
     state.activeView = btn.dataset.view;
-    const titles = { feed: "Personalized Pulse", popular: "Community Popular", recent: "Latest Updates", bookmarks: "Saved Bookmarks" };
+    const titles = { feed: "Personalized Pulse", popular: "Community Popular", recent: "Latest Updates", bookmarks: "Saved Bookmarks", brief: "Weekly Brief" };
     currentViewTitle.textContent = titles[state.activeView] || "Feed";
     renderFeed();
   });
@@ -188,9 +192,27 @@ sidebarTags.addEventListener("click", (e) => {
   renderFeed();
 });
 
+let searchTimer = null;
 searchInput.addEventListener("input", (e) => {
   state.searchQuery = e.target.value.trim().toLowerCase();
-  renderFeed();
+  clearTimeout(searchTimer);
+  if (!state.searchQuery) { state.searchedItems = []; renderFeed(); return; }
+  searchTimer = setTimeout(async () => {
+    try {
+      const res = await fetch(`/search?q=${encodeURIComponent(state.searchQuery)}&type=${state.activeType}&limit=20`);
+      if (!res.ok) throw new Error(res.status);
+      const data = await res.json();
+      state.searchedItems = (data.items || []).map((it) => ({
+        ...it,
+        description: it.summary || "",
+        date: it.publishedAt ? String(it.publishedAt).slice(0, 10) : "",
+        summary: it.summary || "",
+      }));
+    } catch {
+      state.searchedItems = [];
+    }
+    renderFeed();
+  }, 250);
 });
 
 document.addEventListener("keydown", (e) => {
@@ -270,4 +292,55 @@ function startAutoSync() {
 function stopAutoSync() {
   if (state.countdownTimer) clearInterval(state.countdownTimer);
   if (state.refreshTimer) clearInterval(state.refreshTimer);
+}
+
+/* ── Weekly brief ────────────────────────────── */
+async function loadBrief() {
+  const btn = document.getElementById('brief-load-btn');
+  if (btn) { btn.textContent = "Generating…"; btn.disabled = true; }
+  try {
+    const res = await fetch('/brief', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ profile: { id: state.profile.id || 'web-local', ...buildRankRequestBody(state.profile).profile }, force: true }),
+    });
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    state.brief = data.brief;
+    renderBrief();
+  } catch (err) {
+    console.error('Brief failed:', err);
+    state.brief = null;
+    renderBrief();
+  }
+}
+
+function renderBrief() {
+  const container = document.getElementById('brief-view');
+  if (!container) return;
+  const b = state.brief;
+  if (!b) {
+    container.innerHTML = `<div class="widget-card"><div class="widget-header"><div class="widget-title"><svg class="widget-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>Weekly Brief</div></div><p style="color:var(--text-dim);font-size:0.85rem;padding:0.6rem 0">A tailored plan for the week ahead, built from this week's feed.</p><button id="brief-load-btn" class="btn-primary">Generate this week's brief</button></div>`;
+    document.getElementById('brief-load-btn').onclick = loadBrief;
+    container.classList.remove('hidden');
+    cardsContainer.classList.add('hidden');
+    return;
+  }
+  const trends = (b.trends || []).map((t) =>
+    `<div class="trending-item"><div><div class="trend-tag">${escapeHtml(t.tag)}</div><div class="trend-reads">${t.mentions} mentions</div></div><div class="trend-delta">trending</div></div>`
+  ).join('');
+  const skills = (b.skills || []).map((s) => {
+    const roadmap = (s.roadmap || []).map((step, j) =>
+      `<div class="roadmap-step${j === 0 ? ' current' : ''}"><div class="step-marker">${j + 1}</div><div class="step-card"><h4>${escapeHtml(step)}</h4></div></div>`
+    ).join('');
+    const todos = (s.checklist || []).map((t, j) =>
+      `<div class="todo-item"><input type="checkbox" class="todo-checkbox"${j === 0 ? ' checked disabled' : ''}><span class="todo-text">${escapeHtml(t)}</span></div>`
+    ).join('');
+    return `<div class="roadmap-wrapper"><div class="roadmap-header"><h3>${escapeHtml(s.name)}</h3><p>${escapeHtml(s.why)}</p></div><div class="roadmap-timeline">${roadmap}</div><div class="todo-wrapper" style="margin-top:0.75rem"><div class="todo-header"><h3>Checklist</h3><span class="todo-progress-indicator">${s.checklist.length} tasks</span></div><div class="todo-items-list">${todos}</div></div></div>`;
+  }).join('');
+  container.innerHTML = `<div class="widget-card"><div class="widget-header"><div class="widget-title"><svg class="widget-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>Weekly Brief</div></div></div>
+  <div class="widget-card" style="margin-top:1rem"><div class="widget-header"><div class="widget-title">This week for ${escapeHtml(state.profile.name || 'you')}</div></div><p style="font-size:0.95rem;color:#fff;padding:0.6rem 0">${escapeHtml(b.headline)}</p><div class="trending-list" style="margin-top:0.5rem">${trends}</div></div>
+  <div class="widget-card" style="margin-top:1rem"><div class="widget-header"><div class="widget-title">Skills to build this week</div></div><div class="roadmap-wrapper" style="margin-top:0.75rem">${skills}</div></div>`;
+  container.classList.remove('hidden');
+  cardsContainer.classList.add('hidden');
 }

@@ -4,7 +4,7 @@ import test, { after, before } from 'node:test';
 await import('../config.js');
 const { DbUnavailableError, closePool, query } = await import('../db/pool.js');
 const { migrate } = await import('../db/migrate.js');
-const { importSeedItems } = await import('../db/seed.js');
+const { importSeedItems, loadSeedItems } = await import('../db/seed.js');
 const repo = await import('../db/repo.js');
 
 let available = false;
@@ -34,11 +34,12 @@ function skipUnless(t) {
   return !available;
 }
 
-test('seed import brings in the 18 seed items', async (t) => {
+test('seed import brings in every seed item', async (t) => {
   if (skipUnless(t)) return;
+  const expected = loadSeedItems().length;
   const imported = await importSeedItems();
-  assert.equal(imported, 18);
-  assert.ok((await repo.countItems()) >= 18);
+  assert.equal(imported, expected);
+  assert.ok((await repo.countItems()) >= expected);
 });
 
 test('listRecentItems returns mapped items with parsed tags', async (t) => {
