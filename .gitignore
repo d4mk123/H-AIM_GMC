@@ -1,3 +1,5 @@
 .env
 node_modules/
 nabdh-backend-plan.md
+npm-debug.log*
+.DS_Store

@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: nabdh-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nabdh
+      POSTGRES_PASSWORD: nabdh
+      POSTGRES_DB: nabdh
+    ports:
+      - "5432:5432"
+    volumes:
+      - nabdh-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nabdh -d nabdh"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  nabdh-pgdata:

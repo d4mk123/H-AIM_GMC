@@ -67,6 +67,45 @@ The ranking service receives a user profile and a set of content items, then ret
 
 API keys belong on the server and should be provided through environment variables. Never commit `.env` files or credentials to the repository.
 
+## Configuration
+
+All configuration is read from environment variables. Copy `.env.example` to `.env` and fill in the values; the file is ignored by git.
+
+| Variable | Purpose |
+| --- | --- |
+| `GROQ_API_KEY` | AI provider key used for ranking and the weekly brief. Optional in local dev — deterministic fallbacks are used when absent. |
+| `GROQ_MODEL` | Model id sent to the AI provider. |
+| `AI_BASE_URL` | AI provider base URL; override to point at a mock during tests. |
+| `AI_TIMEOUT_MS` | Timeout for model calls. |
+| `DATABASE_URL` | PostgreSQL connection string (local Docker, Render, or Guepard at the hackathon). |
+| `PG_SSL` | Set to `true` when the database requires TLS. |
+| `SEARCH_PROVIDER` | `none`, `tavily`, or `serper`. |
+| `TAVILY_API_KEY` / `SERPER_API_KEY` | Search provider keys; only needed for live search. |
+| `SEARCH_TIMEOUT_MS` | Live search timeout; seed data is returned on timeout. |
+| `PORT` | HTTP port. |
+| `CORS_ORIGIN` | Allowed CORS origin (`*` by default). |
+
+## Local development
+
+```bash
+docker compose up -d            # local PostgreSQL 16
+cd backend && npm install
+cp ../.env.example ../.env      # fill in keys
+npm run dev                     # http://localhost:3000
+npm test                        # unit + integration tests
+npm run smoke                   # end-to-end checkpoint script
+```
+
+Database schema is applied automatically at startup, and `frontend/seed_items.json` is imported as fallback content on first boot.
+
+## Deployment
+
+The backend is deployable as a single service: it serves the API and (once built) the frontend from the same process.
+
+- `render.yaml` — Render blueprint: build `npm ci --prefix backend`, start `node backend/server.js`. Set `GROQ_API_KEY` and `DATABASE_URL` as secret environment variables in the dashboard.
+- `Dockerfile` — container build for any other host (including the hackathon's setup).
+- Database: any PostgreSQL via `DATABASE_URL` (local Docker, Render Postgres, or a Guepard deployment).
+
 ## Project status
 
 Nabdh is an early prototype. The current direction focuses on the personalized feed and weekly career brief. Future work includes production source integrations, richer feedback signals, scheduled backend refreshes, progress tracking, and broader regional coverage.
