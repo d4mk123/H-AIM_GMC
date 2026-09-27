@@ -210,3 +210,413 @@
     "location": "Les Berges du Lac, Tunis"
   }
 ]
+    "id": "news-001",
+    "type": "news",
+    "title": "Tunisia Expands Startup Financing Efforts Through New Fund Initiative",
+    "source": "techinafrica.com",
+    "summary": "Tunisia has announced a new startup financing initiative as the country continues efforts to strengthen support for entrepreneurs and technology-driven businesses. The fund is focu...",
+    "link": "https://www.techinafrica.com/tunisia-expands-startup-financing-efforts-through-new-fund-initiative",
+    "date": "Thu, 24 Se",
+    "tags": [
+      "startups"
+    ]
+  },
+  {
+    "id": "news-002",
+    "type": "news",
+    "title": "Tunisia’s State Startup Fund Looks Beyond Capital City Tech Elites - Launch Base Africa",
+    "source": "launchbaseafrica.com",
+    "summary": "ANAVA is the first fund of funds in Tunisia and on the African continent, denominated in euros. It has a target size of €100mn, with a first closing of €60mn already secured — €40m...",
+    "link": "https://launchbaseafrica.com/2026/09/24/tunisia-startup-fund",
+    "date": "Thu, 24 Se",
+    "tags": [
+      "ai",
+      "startups"
+    ]
+  },
+  {
+    "id": "news-003",
+    "type": "news",
+    "title": "10 Startup Incubators/Accelerators Shaping the Future of Tech in North Africa",
+    "source": "weetracker.com",
+    "summary": "Based in Tunisia and focused on catalysing scalable startups in the region, ACT Tunisia (through its growth programmes) targets sectors such as GreenTech, BioTech and Artificial In...",
+    "link": "https://weetracker.com/2025/11/13/10-startup-incubators-accelerators-shaping-the-future-of-tech-in-north-africa",
+    "date": "Thu, 13 No",
+    "tags": [
+      "ai",
+      "startups"
+    ]
+  },
+  {
+    "id": "news-004",
+    "type": "news",
+    "title": "A Strategic Bridge Between Africa And Europe: Tunisia’s Role In The Innovation Ecosystem",
+    "source": "news.crunchbase.com",
+    "summary": "As of 2025, Tunisia hosts 17 scaleups and more than 1,450 startups, ranking among Africa’s top 10 destinations for tech innovation. The country is also home to one of the continent...",
+    "link": "https://news.crunchbase.com/regional/strategic-bridge-africa-europe-tunisia-onetti-mind-the-bridge",
+    "date": "Fri, 28 Fe",
+    "tags": [
+      "ai",
+      "startups"
+    ]
+  },
+  {
+    "id": "news-005",
+    "type": "news",
+    "title": "Tunisia’s RoboCare secures funding to accelerate precision agriculture in Africa, Middle East - Disrupt Africa",
+    "source": "disruptafrica.com",
+    "summary": "Tunisian startup RoboCare, which specialises in precision agriculture and artificial intelligence applied to the agricultural sector, has secured a six-figure investment from 216 C...",
+    "link": "https://disruptafrica.com/2026/06/25/tunisias-robocare-secures-funding-to-accelerate-precision-agriculture-in-africa-middle-east",
+    "date": "Thu, 25 Ju",
+    "tags": [
+      "ai",
+      "startups"
+    ]
+  },
+  {
+    "id": "news-006",
+    "type": "news",
+    "title": "Top 10 AI Startups to Watch in Tunisia in 2026",
+    "source": "nucamp.co",
+    "summary": "Bootstrapped initially, Kamioun has started pilot deployments in the Greater Tunis area and is exploring partnerships with major distributors like a local partner of Nestlé and Sod...",
+    "link": "https://www.nucamp.co/blog/coding-bootcamp-tunisia-tun-tunisias-top-10-startups-that-tech-professionals-should-watch-out-for-in-2025",
+    "date": "Sat, 25 Ap",
+    "tags": [
+      "ai",
+      "fintech",
+      "startups"
+    ]
+  },
+  {
+    "id": "news-007",
+    "type": "news",
+    "title": "Tunisia Hosts Second International Forum on Intelligent Information Technologies - TechAfrica News",
+    "source": "techafricanews.com",
+    "summary": "In addition to theoretical discussions, the forum places strong emphasis on practical applications. Participants are showcasing innovative projects in sectors such as healthcare, s...",
+    "link": "https://techafricanews.com/2026/03/27/tunisia-hosts-second-international-forum-on-intelligent-information-technologies",
+    "date": "Fri, 27 Ma",
+    "tags": [
+      "ai",
+      "cloud",
+      "fintech",
+      "cybersecurity"
+    ]
+  },
+  {
+    "id": "news-008",
+    "type": "news",
+    "title": "Startup Wrap: MENA startups attract fresh funding across fintech, HR tech and AI sectors",
+    "source": "arabnews.pk",
+    "summary": "Tunisia’s EYST Technology raises funding for global expansion\n\nTunisia-based insurance tech startup EYST Technology raised a six-figure investment from 216 Capital to support produ...",
+    "link": "https://www.arabnews.pk/business/startup-wrap-mena-startups-attract-fresh-funding-across-fintech-hr-tech-and-ai-sectors-2644714",
+    "date": "Sat, 23 Ma",
+    "tags": [
+      "ai",
+      "fintech",
+      "startups"
+    ]
+  },
+  {
+    "id": "news-009",
+    "type": "news",
+    "title": "What’s Behind North Africa’s Digital Generation? Tunisia. - Telecom Review Africa",
+    "source": "telecomreviewafrica.com",
+    "summary": "Fintech Becomes the North Star\n\nTunisia’s connectivity gains have fueled rapid growth in digital payments and fintech. In 2024, electronic transactions in Tunisia reached approxima...",
+    "link": "https://www.telecomreviewafrica.com/articles/features/28394-whats-behind-north-africas-digital-generation-tunisia",
+    "date": "Mon, 09 Ma",
+    "tags": [
+      "ai",
+      "fintech",
+      "startups"
+    ]
+  },
+  {
+    "id": "news-010",
+    "type": "news",
+    "title": "ICSFS secures Angolan debut with African Bank of Oman partnership",
+    "source": "fintechfutures.com",
+    "summary": "Other banks in the region using the same software include Tunis International Bank in Tunisia, Oromia Bank in Ethiopia, Arab Jordan Investment Bank in Jordan, Ziraat Bank in Algeri...",
+    "link": "https://www.fintechfutures.com/bankingtech/ics-financial-systems-african-bank-of-oman",
+    "date": "Wed, 29 Ju",
+    "tags": [
+      "ai",
+      "fintech"
+    ]
+  },
+  {
+    "id": "news-011",
+    "type": "news",
+    "title": "What’s Behind North Africa’s Digital Generation? Tunisia. - Telecom Review Africa",
+    "source": "telecomreviewafrica.com",
+    "summary": "Digital innovation is extending into healthcare as well. In early 2026, Tunisia’s Ministry of Health partnered with Tunisia Telecom to accelerate health sector digitalization, expa...",
+    "link": "https://www.telecomreviewafrica.com/articles/features/28394-whats-behind-north-africas-digital-generation-tunisia",
+    "date": "Mon, 09 Ma",
+    "tags": [
+      "ai",
+      "cloud",
+      "startups"
+    ]
+  },
+  {
+    "id": "news-012",
+    "type": "news",
+    "title": "Software Engineer Job Roles: Build Your Career in Tech",
+    "source": "simplilearn.com",
+    "summary": "### 9. Cloud Engineer\n\nThese professionals primarily develop and enhance cloud-based applications that align with company goals. A cloud engineer's important responsibilities inclu...",
+    "link": "https://www.simplilearn.com/software-engineer-job-roles-article",
+    "date": "Sun, 14 Ju",
+    "tags": [
+      "ai",
+      "cloud"
+    ]
+  },
+  {
+    "id": "news-013",
+    "type": "news",
+    "title": "Cloud Analytics Market worth $41.33 billion by 2031",
+    "source": "marketsandmarkets.com",
+    "summary": "by the adoption of integrated analytics platforms that combine data engineering, analytics, and visualization capabilities within unified cloud environments, enabling more efficien...",
+    "link": "https://www.marketsandmarkets.com/PressReleases/cloud-based-business-analytics.asp",
+    "date": "Fri, 20 Ma",
+    "tags": [
+      "ai",
+      "cloud",
+      "data engineering"
+    ]
+  },
+  {
+    "id": "news-014",
+    "type": "news",
+    "title": "10 Highest Paying Software Engineering Jobs & Salaries (2026) | Nexford University",
+    "source": "nexford.edu",
+    "summary": "Cloud computing is the natural evolution of the internet. It is harnessing the power of the internet to store, manage, process, and analyze data.\n\nUnlike traditional computing, whe...",
+    "link": "https://www.nexford.edu/insights/highest-paying-software-engineering-jobs",
+    "date": "Fri, 28 Au",
+    "tags": [
+      "ai",
+      "cloud"
+    ]
+  },
+  {
+    "id": "news-015",
+    "type": "news",
+    "title": "15 Highest Paying Computer Science Jobs & Salaries 2026 | Nexford University",
+    "source": "nexford.edu",
+    "summary": "Big data engineers design, build, and maintain large-scale data processing systems. They work with big data technologies, such as Hadoop and Spark, to process and analyze massive a...",
+    "link": "https://www.nexford.edu/insights/highest-paying-computer-science-jobs",
+    "date": "Tue, 04 Au",
+    "tags": [
+      "ai",
+      "cloud"
+    ]
+  },
+  {
+    "id": "event-001",
+    "type": "event",
+    "title": "Tech meetups in Tunisia 2026 / 2027",
+    "source": "dev.events",
+    "organizer": "",
+    "location": "Online",
+    "summary": "Tech meetups in Tunisia 2026 / Online Tech meetups accessible from Tunisia: Sep 24 26 tech AI, ML and Computer Vision Meetup ・ meetup Online 25% discount with...",
+    "link": "https://dev.events/meetups/AF/TN/tech",
+    "date": "2026-09-27",
+    "tags": [
+      "ai",
+      "ml"
+    ]
+  },
+  {
+    "id": "event-002",
+    "type": "event",
+    "title": "Information Technology Conferences in Tunisia 2026 + CFP",
+    "source": "internationalconferencealerts.com",
+    "organizer": "",
+    "location": "Tunis, in-person",
+    "summary": "Upcoming Information Technology Events Across Tunisia ; International Conference on Cloud Architecture in IT Solutions. Sat, Oct 31, 2026 - Sun, Nov 1, 2026....",
+    "link": "https://internationalconferencealerts.com/information-technology/tunisia",
+    "date": "2026-09-27",
+    "tags": [
+      "cloud"
+    ]
+  },
+  {
+    "id": "event-003",
+    "type": "event",
+    "title": "The Tunisian Delegation for London Tech Week 2026! 🇹🇳🇬🇧 ...",
+    "source": "facebook.com",
+    "organizer": "",
+    "location": "Tunis, in-person",
+    "summary": "Come meet the faces behind the innovation at the Tunisian Pavilion (Stand N° 121) and join us for our main and side events throughout the week!...",
+    "link": "https://www.facebook.com/tunisianbritishchamber/videos/-meet-the-innovators-the-tunisian-delegation-for-london-tech-week-2026-we-are-pr/1868433837156164",
+    "date": "2026-09-27",
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "event-004",
+    "type": "event",
+    "title": "AIO Events | AIO was at the Tunisia Global Forum to experience ...",
+    "source": "instagram.com",
+    "organizer": "",
+    "location": "",
+    "summary": "Photo by AIO Events on September 21, 2026. May be an image of ‎poster, magazine, screen, pool and ‎text that says '‎1 aio حكاية عندها إقامة كل 开品 11 1- معنا ابدأها CET Google Play...",
+    "link": "https://www.instagram.com/reel/DdJuDYUsBac",
+    "date": "2026-09-27",
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "event-005",
+    "type": "event",
+    "title": "Tunisia: Big Tech Africa forum draws 100 startups in hope to ...",
+    "source": "youtube.com",
+    "organizer": "",
+    "location": "Tunis, in-person",
+    "summary": "### Transcript\n[0:01] Tunisia is welcoming over a 100 startups and around 30 countries for the second edition of Big Tech Africa this week.\n[0:09] The 3-day forum is hoping to ceme...",
+    "link": "https://www.youtube.com/watch?v=R8wUZ5hHjH4",
+    "date": "2026-09-27",
+    "tags": [
+      "ai",
+      "startups"
+    ]
+  },
+  {
+    "id": "event-006",
+    "type": "event",
+    "title": "Community Days | AI & Automation Hackathon : AUTOMATE OR DIE",
+    "source": "communitydays.org",
+    "organizer": "",
+    "location": "Tunis, in-person",
+    "summary": "📍 Location: SESAME University, Tunis, Tunisia  \n📅 Date: 17–19 July 2026  \n🎟️ Format: In-Person Event & Hackathon\n\n## 🌟 About the Event\n\nTechnology is changing faster than ever,...",
+    "link": "https://www.communitydays.org/event/2026-07-17/ai-and-automation-hackathon-automate-or-die",
+    "date": "2026-09-27",
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "event-007",
+    "type": "event",
+    "title": "Developer hackathons in Tunisia 2026 / 2027",
+    "source": "dev.events",
+    "organizer": "",
+    "location": "Online",
+    "summary": "2026 Artificial Intelligence (AI) hackathon Online ends in 20 days Sep 18 - Oct 15 26 tech Arc Microgrants. Oct 11-18 26 ai AI Builer Cup...",
+    "link": "https://dev.events/hackathons/AF/TN",
+    "date": "2026-09-27",
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "event-008",
+    "type": "event",
+    "title": "WEDE303 AI Forward Summit 2026 — Hammamet, Tunisia",
+    "source": "ai-forwardsummit.org",
+    "organizer": "",
+    "location": "Tunis, in-person",
+    "summary": "For 2026, the Summit will be held at the stunning Medina Congress & Exhibition Centerin Hammamet, further expanding its scope and reinforcing the Arab world’s ambition to lead ethi...",
+    "link": "https://ai-forwardsummit.org",
+    "date": "2026-09-27",
+    "tags": [
+      "ai",
+      "cloud"
+    ]
+  },
+  {
+    "id": "event-009",
+    "type": "event",
+    "title": "See AI Odyssey Hackathon at Google Developer Groups GDG on Campus Higher school of communication of tunis, Sup'Com - Ariana, Tunisia",
+    "source": "gdg.community.dev",
+    "organizer": "",
+    "location": "",
+    "summary": "## About this event\n\nWhat to Expect:\n\nDynamic Tracks: Participants will tackle challenges across three focus areas:\n\nTrend Analysis: Build AI models that analyze viral content on p...",
+    "link": "https://gdg.community.dev/events/details/google-gdg-on-campus-higher-school-of-communication-of-tunis-supcom-ariana-tunisia-presents-ai-odyssey-hackathon/cohost-gdg-on-campus-higher-school-of-communication-of-tunis-supcom-ariana-tunisia",
+    "date": "2026-09-27",
+    "tags": [
+      "ai",
+      "ml",
+      "cloud"
+    ]
+  },
+  {
+    "id": "event-010",
+    "type": "event",
+    "title": "AI Readiness hackathon — Kingdom of Saudi Arabia - AI for Good",
+    "source": "aiforgood.itu.int",
+    "organizer": "",
+    "location": "",
+    "summary": "Mentoring session recording\n\nJuly 26, 2026: Introductory session\n\nView recording\n\nPasscode: 6zF%y7Rr\n\nSecond mentoring session recording\n\nAugust 02, 2026: Introduction to Y.3172 an...",
+    "link": "https://aiforgood.itu.int/event/ai-readiness-hackathon-kingdom-of-saudi-arabia",
+    "date": "2026-09-27",
+    "tags": [
+      "ai"
+    ]
+  },
+  {
+    "id": "event-011",
+    "type": "event",
+    "title": "IEEE Entrepreneurship 101 Tunisia Workshop",
+    "source": "entrepreneurship.ieee.org",
+    "organizer": "",
+    "location": "Tunis, in-person",
+    "summary": "The workshop will be held in Gammarth, Tunis, Tunisia, starting on 25 August and ending on 27 August. The in-person event will be preceded by...",
+    "link": "https://entrepreneurship.ieee.org/2025_tunisia_workshop",
+    "date": "2026-09-27",
+    "tags": []
+  },
+  {
+    "id": "event-012",
+    "type": "event",
+    "title": "Open call: workshop for cultural mobility developers.",
+    "source": "on-the-move.org",
+    "organizer": "",
+    "location": "Tunis, in-person",
+    "summary": "The deadline for this call has now passed. in Tunis (Tunisia) Tunisia 9-12 May 2023 Deadline for applications: 19 February 2023 (23:59 CEST)...",
+    "link": "https://on-the-move.org/news/open-call-workshop-cultural-mobility-developers-tunis-tunisia",
+    "date": "2026-09-27",
+    "tags": []
+  },
+  {
+    "id": "event-013",
+    "type": "event",
+    "title": "Open Source Machine Building Workshop at ENIT Tunisia ...",
+    "source": "cordis.europa.eu",
+    "organizer": "",
+    "location": "",
+    "summary": "This workshop is a unique opportunity to develop your technological skills, meet start-up incubators and work in a diverse international team with members from...",
+    "link": "https://cordis.europa.eu/event/id/147179-open-source-machine-building-workshop-at-enit-tunisia-national-engineering-school-of-tunis/de",
+    "date": "2026-09-27",
+    "tags": []
+  },
+  {
+    "id": "event-014",
+    "type": "event",
+    "title": "Introduction to Web Development Workshop",
+    "source": "gdg.community.dev",
+    "organizer": "",
+    "location": "",
+    "summary": "Join an engaging workshop to explore web development fundamentals with a hands-on introduction to HTML and CSS. Sep 25, 11:00 AM – 1:00 PM (PDT...",
+    "link": "https://gdg.community.dev/events/details/google-gdg-on-campus-higher-school-of-communication-of-tunis-supcom-ariana-tunisia-presents-introduction-to-web-development-workshop",
+    "date": "2026-09-27",
+    "tags": [
+      "ml"
+    ]
+  },
+  {
+    "id": "event-015",
+    "type": "event",
+    "title": "Collective Marks Training in Tunisia Supports Local ...",
+    "source": "wipo.int",
+    "organizer": "",
+    "location": "Tunis, in-person",
+    "summary": "The training of trainers in Tunis strengthened national capacity to support collective marks as instruments for value creation,...",
+    "link": "https://www.wipo.int/en/web/development-agenda/w/news/2026/collective-marks-training-tunisia-supports-local-development-value-creation",
+    "date": "2026-09-27",
+    "tags": [
+      "ai"
+    ]
+  }
+]
