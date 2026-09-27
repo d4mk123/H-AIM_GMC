@@ -1,5 +1,17 @@
 [
   {
+    "id": "job-kaoun-01",
+    "type": "job",
+    "title": "Backend Developer (Python/Django)",
+    "description": "Kaoun International, makers of the Enova Robotics platform, is seeking a Backend Developer to help build and scale our robotics software ecosystem.",
+    "tags": ["backend", "Python", "Django", "robotics", "AI"],
+    "source": "Kaoun International",
+    "date": "2026-09-17",
+    "url": "#",
+    "location": "Sousse",
+    "hub": "Technopole"
+  },
+  {
     "id": "news-01",
     "type": "news",
     "title": "Tunisia Launches National AI Strategy 2025-2030",

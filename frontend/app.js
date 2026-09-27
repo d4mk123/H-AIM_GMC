@@ -12,8 +12,8 @@
 /* ══════════════════════════════════════════════════════════════════
    1. APPLICATION STATE
    ══════════════════════════════════════════════════════════════════ */
-const GEMINI_API_KEY = "AIzaSyBrNZOjkRiKVlqU36cLXJ4fpF7isvieKDo";
-const GEMINI_MODEL = "gemini-2.0-flash";
+const GEMINI_API_KEY = "--";
+const GEMINI_MODEL = "--";
 
 const state = {
   user: JSON.parse(localStorage.getItem("nabdh_user") || "null"),
@@ -168,11 +168,18 @@ const registerStepTitle = $("#register-step-title");
 const btnNextStep       = $("#btn-next-step");
 const btnBackStep       = $("#btn-back-step");
 const regInterestGrid   = $("#reg-interest-grid");
-const regRecommendationsGroup = $("#reg-recommendations-group");
-const regRecommendationsGrid  = $("#reg-recommendations-grid");
 const registerForm      = $("#register-form");
 const btnFinishRegister = $("#btn-finish-register");
 const loginForm         = $("#login-form");
+
+// CV Upload elements
+const cvZone            = $("#cv-upload-zone");
+const cvFileInput       = $("#reg-cv-file");
+const cvUploadContent   = $("#cv-upload-content");
+const cvFilePreview     = $("#cv-file-preview");
+const cvFilename        = $("#cv-filename");
+const cvFilesize        = $("#cv-filesize");
+const btnRemoveCv       = $("#btn-remove-cv");
 
 const demoStudentLogin  = $("#demo-student-login");
 const demoCloudLogin    = $("#demo-cloud-login");
@@ -180,13 +187,53 @@ const demoCloudLogin    = $("#demo-cloud-login");
 const navItems          = $$(".nav-item");
 const feedCountBadge    = $("#feed-count-badge");
 const bookmarkCountBadge= $("#bookmark-count-badge");
-const squadsNav         = $("#squads-nav");
 const sidebarTags       = $("#sidebar-tags");
 const userNameDisplay   = $("#user-name-display");
 const userRoleDisplay   = $("#user-role-display");
 const userAvatarInitial = $("#user-avatar-initial");
+
+// Profile Popover & Configuration Modal Elements
+const userProfileWidget     = $("#user-profile-widget");
+const profilePopoverMenu    = $("#profile-popover-menu");
+const profileConfigOverlay  = $("#profile-config-overlay");
+const configCloseBtn        = $("#config-close-btn");
+const configCancelBtn       = $("#config-cancel-btn");
+const configSaveBtn         = $("#config-save-btn");
+const configTabBtns         = $$(".config-tab-btn");
+const configPanels          = $$(".config-panel");
+const popoverLogoutBtn      = $("#popover-logout-btn");
+const themeSegBtns          = $$(".theme-seg-btn");
+const popoverFeedbackToggle = $("#popover-feedback-toggle");
+const nabdhToast            = $("#nabdh-toast");
+const nabdhToastText        = $("#nabdh-toast-text");
+const cfgUploadCvTrigger    = $("#cfg-upload-cv-trigger");
+const cfgCvFileInput        = $("#cfg-cv-file-input");
+const cfgCurrentCvName      = $("#cfg-current-cv-name");
+const cfgCurrentCvSize      = $("#cfg-current-cv-size");
 const quickLogoutBtn    = $("#quick-logout-btn");
 const exitToWelcomeBtn  = $("#exit-to-welcome-btn");
+
+// AI Brief & Copilot Modal Elements
+const openAiBriefBtn        = $("#open-ai-brief-btn");
+const aiBriefOverlay        = $("#ai-brief-overlay");
+const aiBriefCloseBtn       = $("#ai-brief-close-btn");
+const aiTabBtns             = $$(".ai-tab-btn");
+const aiPanels              = $$(".ai-panel");
+const btnRefreshAiBrief     = $("#btn-refresh-ai-brief");
+const aiBriefSawTitle       = $("#ai-brief-saw-title");
+const aiBriefSawText        = $("#ai-brief-saw-text");
+const aiBriefTags           = $("#ai-brief-tags");
+const aiBriefWorldTitle     = $("#ai-brief-world-title");
+const aiBriefWorldText      = $("#ai-brief-world-text");
+const aiBriefAdviceTitle    = $("#ai-brief-advice-title");
+const aiBriefAdviceText     = $("#ai-brief-advice-text");
+const aiTodoList            = $("#ai-todo-list");
+const aiTodoAddForm         = $("#ai-todo-add-form");
+const aiTodoInput           = $("#ai-todo-input");
+const todoProgressText      = $("#todo-progress-text");
+const aiChatForm            = $("#ai-chat-form");
+const aiChatInput           = $("#ai-chat-input");
+const aiChatMessages        = $("#ai-chat-messages");
 
 const searchInput       = $("#search-input");
 const typePills         = $("#type-pills");
@@ -247,7 +294,7 @@ function initCustomSelects() {
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   6. TECH INTEREST TAGS & SMART RECOMMENDATIONS
+   6. TECH INTEREST TAGS & SMART RECOMMENDATIONS (Inline Spawning)
    ══════════════════════════════════════════════════════════════════ */
 function initRegisterInterestGrid() {
   const container = regInterestGrid;
@@ -259,80 +306,141 @@ function initRegisterInterestGrid() {
 
   container.addEventListener("click", (e) => {
     const chip = e.target.closest(".tag-chip");
-    if (chip) {
+    if (!chip) return;
+
+    // If it's an inline recommendation chip, toggle its selected state
+    if (chip.classList.contains("recommendation-chip")) {
       chip.classList.toggle("selected");
-      updateRecommendations();
+      return;
+    }
+
+    // It's a primary interest tag chip
+    const interestName = chip.dataset.interest;
+    const isSelected = chip.classList.toggle("selected");
+
+    if (isSelected) {
+      spawnRecommendationsFor(chip, interestName);
+    } else {
+      removeRecommendationsFor(interestName);
     }
   });
-
-  if (regRecommendationsGrid) {
-    regRecommendationsGrid.addEventListener("click", (e) => {
-      const chip = e.target.closest(".tag-chip");
-      if (chip) {
-        chip.classList.toggle("selected");
-      }
-    });
-  }
 }
 
-function updateRecommendations() {
-  if (!regRecommendationsGroup || !regRecommendationsGrid) return;
+function spawnRecommendationsFor(chip, interestName) {
+  const recs = INTEREST_RECOMMENDATIONS[interestName];
+  if (!recs || recs.length === 0) return;
 
-  // Find all selected primary interests
-  const selectedPrimary = [];
-  document.querySelectorAll("#reg-interest-grid .tag-chip.selected").forEach((btn) => {
-    selectedPrimary.push(btn.dataset.interest || btn.textContent.trim());
+  // Clean any existing recommendation chips for this interest
+  removeRecommendationsFor(interestName);
+
+  // Spawn each recommendation tag chip immediately to the right of the clicked chip (in the same row, after it)
+  let insertCursor = chip;
+  recs.forEach((rec) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "tag-chip recommendation-chip";
+    btn.dataset.interest = rec;
+    btn.dataset.parent = interestName;
+    btn.textContent = `+ ${rec}`;
+    insertCursor.insertAdjacentElement("afterend", btn);
+    insertCursor = btn;
   });
+}
 
-  // Preserve recommendations the user already selected
-  const activeSelectedRecs = new Set();
-  document.querySelectorAll("#reg-recommendations-grid .tag-chip.selected").forEach((btn) => {
-    let t = btn.dataset.interest || btn.textContent.trim();
-    t = t.replace(/^\+\s*/, "");
-    activeSelectedRecs.add(t);
-  });
-
-  if (selectedPrimary.length === 0 && activeSelectedRecs.size === 0) {
-    regRecommendationsGroup.style.display = "none";
-    regRecommendationsGrid.innerHTML = "";
-    return;
-  }
-
-  // Aggregate recommendations from all chosen primary interests
-  const recsSet = new Set();
-  selectedPrimary.forEach((interest) => {
-    const list = INTEREST_RECOMMENDATIONS[interest];
-    if (list) {
-      list.forEach((item) => recsSet.add(item));
-    }
-  });
-
-  // Always keep user-selected recommendation chips in the list
-  activeSelectedRecs.forEach((item) => recsSet.add(item));
-
-  if (recsSet.size === 0) {
-    regRecommendationsGroup.style.display = "none";
-    regRecommendationsGrid.innerHTML = "";
-    return;
-  }
-
-  regRecommendationsGroup.style.display = "block";
-  regRecommendationsGrid.innerHTML = Array.from(recsSet).map((rec) => {
-    const isSelected = activeSelectedRecs.has(rec) ? " selected" : "";
-    return `<button type="button" class="tag-chip recommendation-chip${isSelected}" data-interest="${escapeHtml(rec)}">+ ${escapeHtml(rec)}</button>`;
-  }).join("");
+function removeRecommendationsFor(interestName) {
+  const parentEscaped = CSS && CSS.escape ? CSS.escape(interestName) : interestName.replace(/["\\]/g, '\\$&');
+  const existing = document.querySelectorAll(`.recommendation-chip[data-parent="${parentEscaped}"]`);
+  existing.forEach((el) => el.remove());
 }
 
 function getSelectedInterests() {
   const interests = [];
-  document.querySelectorAll("#reg-interest-grid .tag-chip.selected, #reg-recommendations-grid .tag-chip.selected").forEach((btn) => {
+  document.querySelectorAll("#reg-interest-grid .tag-chip.selected").forEach((btn) => {
     let val = btn.dataset.interest || btn.textContent.trim();
-    val = val.replace(/^\+\s*/, "");
+    val = val.replace(/^\+\s*/, "").trim();
     if (val && !interests.includes(val)) {
       interests.push(val);
     }
   });
   return { interests, skillLevels: {} };
+}
+
+/* ── CV / Resume Upload Handler (Strictly PDF) ────────────── */
+function initCvUpload() {
+  if (!cvZone || !cvFileInput) return;
+
+  function handleCvFile(file) {
+    if (!file) return;
+
+    // Strict PDF validation check
+    const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+    if (!isPdf) {
+      alert("Invalid format: Please upload a PDF file (.pdf) only.");
+      cvFileInput.value = "";
+      return;
+    }
+
+    if (file.size > 15 * 1024 * 1024) {
+      alert("File size exceeds 15MB limit.");
+      cvFileInput.value = "";
+      return;
+    }
+
+    let sizeStr = (file.size / 1024).toFixed(1) + " KB";
+    if (file.size > 1024 * 1024) {
+      sizeStr = (file.size / (1024 * 1024)).toFixed(1) + " MB";
+    }
+
+    state.profile.cvName = file.name;
+    state.profile.cvSize = sizeStr;
+    state.profile.hasCv = true;
+
+    if (cvFilename) cvFilename.textContent = file.name;
+    if (cvFilesize) cvFilesize.textContent = sizeStr;
+    if (cvUploadContent) cvUploadContent.style.display = "none";
+    if (cvFilePreview) cvFilePreview.style.display = "flex";
+  }
+
+  cvZone.addEventListener("click", (e) => {
+    if (e.target.closest("#btn-remove-cv")) return;
+    if (cvFilePreview && cvFilePreview.style.display === "flex") return;
+    cvFileInput.click();
+  });
+
+  cvFileInput.addEventListener("change", (e) => {
+    if (e.target.files && e.target.files[0]) {
+      handleCvFile(e.target.files[0]);
+    }
+  });
+
+  cvZone.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    cvZone.classList.add("dragover");
+  });
+
+  cvZone.addEventListener("dragleave", () => {
+    cvZone.classList.remove("dragover");
+  });
+
+  cvZone.addEventListener("drop", (e) => {
+    e.preventDefault();
+    cvZone.classList.remove("dragover");
+    if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleCvFile(e.dataTransfer.files[0]);
+    }
+  });
+
+  if (btnRemoveCv) {
+    btnRemoveCv.addEventListener("click", (e) => {
+      e.stopPropagation();
+      cvFileInput.value = "";
+      state.profile.cvName = "";
+      state.profile.cvSize = "";
+      state.profile.hasCv = false;
+      if (cvUploadContent) cvUploadContent.style.display = "flex";
+      if (cvFilePreview) cvFilePreview.style.display = "none";
+    });
+  }
 }
 
 /* ══════════════════════════════════════════════════════════════════
@@ -446,6 +554,9 @@ async function handleRegistrationSubmit() {
   state.profile.occupation = role;
   state.profile.interests = interests;
   state.profile.skillLevels = skillLevels;
+  state.profile.cvName = state.profile.cvName || "";
+  state.profile.cvSize = state.profile.cvSize || "";
+  state.profile.hasCv = !!state.profile.hasCv;
   state.profile.refreshInterval = parseInt(refreshSelect && refreshSelect.dataset.value ? refreshSelect.dataset.value : "25", 10);
 
   state.user = {
@@ -609,29 +720,8 @@ async function loadSeedItems() {
 }
 
 function loadSquadsAndTrending() {
-  renderSquads(TUNISIAN_SQUADS);
   renderTrending(TRENDING_TOPICS);
   renderUpcomingEvents();
-}
-
-function renderSquads(squads) {
-  squadsNav.innerHTML = squads.map((s) => `
-    <button class="squad-btn ${state.activeSquad === s.tag ? "active" : ""}" data-squad="${s.tag}">
-      <span class="squad-icon">${s.icon}</span>
-      <span class="squad-name">${escapeHtml(s.name)}</span>
-      <span class="squad-members">${s.members}</span>
-    </button>
-  `).join("");
-
-  squadsNav.addEventListener("click", (e) => {
-    const btn = e.target.closest(".squad-btn");
-    if (!btn) return;
-    $$(".squad-btn").forEach((b) => b.classList.remove("active"));
-    btn.classList.add("active");
-    state.activeSquad = btn.dataset.squad;
-    currentViewTitle.textContent = btn.querySelector(".squad-name").textContent;
-    renderFeed();
-  });
 }
 
 function renderTrending(trending) {
@@ -833,14 +923,28 @@ cardDetailOverlay.addEventListener("click", (e) => {
    12. FEED RENDERING & FILTERING
    ══════════════════════════════════════════════════════════════════ */
 
-function getTypeIcon(type) {
-  const icons = {
-    news: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><line x1="10" y1="6" x2="18" y2="6"/><line x1="10" y1="10" x2="18" y2="10"/><line x1="10" y1="14" x2="14" y2="14"/></svg>`,
-    job: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,
-    internship: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`,
-    event: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
-  };
-  return icons[type] || `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`;
+function getCardAvatarSvg(type) {
+  if (type === "job") {
+    return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`;
+  } else if (type === "internship") {
+    return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`;
+  } else if (type === "event") {
+    return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+  } else {
+    return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><line x1="10" y1="6" x2="18" y2="6"/><line x1="10" y1="10" x2="18" y2="10"/><line x1="10" y1="14" x2="18" y2="14"/></svg>`;
+  }
+}
+
+function formatPhotoDate(dateStr) {
+  if (!dateStr) return "17 Sept";
+  try {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+    return `${d.getDate()} ${months[d.getMonth()]}`;
+  } catch {
+    return dateStr;
+  }
 }
 
 function renderFeed() {
@@ -855,11 +959,6 @@ function renderFeed() {
   }
 
   if (state.activeType !== "all") displayList = displayList.filter((it) => it.type === state.activeType);
-
-  if (state.activeSquad !== "all") {
-    const sq = state.activeSquad.toLowerCase();
-    displayList = displayList.filter((it) => it.type.toLowerCase() === sq || (it.tags || []).some((t) => t.toLowerCase().includes(sq)));
-  }
 
   if (state.searchQuery) {
     const q = state.searchQuery.toLowerCase();
@@ -878,53 +977,110 @@ function renderFeed() {
     const isUpvoted = state.upvotes[`${item.id}_voted`] === true;
     const isDismissed = state.feedback.some((f) => f.itemId === item.id && !f.relevant);
 
+    let matchHeadline = "Matches your focus on backend";
+    if (item.reason && item.reason.trim()) {
+      matchHeadline = item.reason.trim();
+    } else if (item.tags && item.tags.length > 0) {
+      matchHeadline = `Matches your focus on ${item.tags[0].toLowerCase()}`;
+    } else {
+      matchHeadline = `Matches your focus on ${item.type || 'tech'}`;
+    }
+
+    // Clean concise title without redundant suffixes
+    let cleanTitle = item.title;
+    if (cleanTitle.includes(" — ")) {
+      const parts = cleanTitle.split(" — ");
+      if (parts[0].length >= 8) cleanTitle = parts[0];
+    }
+
+    const locPart = item.location ? item.location.split(',')[0].trim() : "Tunis";
+
     return `
       <article class="nabdh-card ${isDismissed ? "dismissed" : ""}" data-id="${item.id}">
+        <!-- Top Author / Company Header -->
         <div class="card-header">
-          <div class="card-source-info">
-            <span class="source-avatar">${getTypeIcon(item.type)}</span>
-            <span class="source-name">${escapeHtml(item.source || "Tunisia Tech")}</span>
-            <span class="verified-icon">&#10003;</span>
-            <span class="meta-bullet">&middot;</span>
-            ${item.location ? `<span class="card-location">${escapeHtml(item.location)}</span><span class="meta-bullet">&middot;</span>` : ""}
-            <span class="card-time">${formatDate(item.date)}</span>
+          <div class="card-avatar-box">
+            ${getCardAvatarSvg(item.type)}
           </div>
-          <span class="type-badge type-badge--${item.type}">${item.type}</span>
+          <div class="card-author-meta">
+            <div class="card-author-line">
+              <span class="card-company-name">${escapeHtml(item.source || "Tunisia Tech")}</span>
+              <span class="verified-badge-circle" title="Verified">&#10003;</span>
+            </div>
+            <div class="card-sub-meta">
+              <span>📍 ${escapeHtml(locPart)}</span>
+              <span class="meta-dot">•</span>
+              <span>📅 ${formatPhotoDate(item.date)}</span>
+            </div>
+          </div>
+          <span class="card-type-pill card-type-pill--${item.type}">${item.type}</span>
         </div>
 
+        <!-- Crisp Pro Title -->
         <h2 class="card-title">
-          <a href="javascript:void(0)" class="card-title-link" data-card-click="${item.id}">${escapeHtml(item.title)}</a>
+          <a href="javascript:void(0)" class="card-title-link" data-card-click="${item.id}">${escapeHtml(cleanTitle)}</a>
         </h2>
 
+        <!-- Clean Summary -->
         <p class="card-summary">${escapeHtml(item.description)}</p>
 
-        ${item.reason ? `
-          <div class="ai-reason-pill">
-            <span class="ai-reason-pill__icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z"/><circle cx="12" cy="15" r="2"/></svg></span>
-            <span class="ai-reason-pill__text">${escapeHtml(item.reason)}</span>
-            ${item.score != null ? `<span class="ai-score-tag">${item.score}%</span>` : ""}
+        <!-- Rounded Pill Tags -->
+        ${item.tags && item.tags.length > 0 ? `
+          <div class="card-tags-row">
+            ${item.tags.map((t) => `<span class="card-tag">#${escapeHtml(t)}</span>`).join("")}
           </div>
         ` : ""}
 
-        ${item.tags && item.tags.length > 0 ? `<div class="card-tags-row">${item.tags.map((t) => `<span class="card-tag">#${escapeHtml(t)}</span>`).join("")}</div>` : ""}
+        <!-- Photo-Matching AI Match Equalizer Banner -->
+        <div class="card-match-banner" data-card-click="${item.id}">
+          <div class="match-banner-left">
+            <div class="match-bars-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                <line x1="6" y1="20" x2="6" y2="13" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <line x1="12" y1="20" x2="12" y2="7" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <line x1="18" y1="20" x2="18" y2="11" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="match-banner-text">
+              <div class="match-title">${escapeHtml(matchHeadline)}</div>
+              <div class="match-score-text">${item.score != null ? `${item.score}% match` : "50% match"}</div>
+            </div>
+          </div>
+          <div class="match-banner-arrow">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </div>
+        </div>
 
+        <!-- Card Bottom Toolbar -->
         <div class="card-toolbar">
           <div class="toolbar-left">
             <button class="tool-btn tool-btn--upvote ${isUpvoted ? "active" : ""}" data-action="upvote" data-id="${item.id}" title="Upvote">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="19" x2="12" y2="5" />
+                <polyline points="5 12 12 5 19 12" />
+              </svg>
               <span>${upvoteCount}</span>
             </button>
             <button class="tool-btn tool-btn--comment" data-action="discuss" data-id="${item.id}" title="Discussion">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              <span>${(item.title.length % 9) + 2}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+              <span>${(item.title.length % 7) + 2}</span>
             </button>
           </div>
           <div class="toolbar-right">
             <button class="tool-btn tool-btn--bookmark ${isBookmarked ? "active" : ""}" data-action="bookmark" data-id="${item.id}" title="Bookmark">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="${isBookmarked ? 'var(--accent-primary)' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="${isBookmarked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+              </svg>
             </button>
             <button class="tool-btn tool-btn--dismiss" data-action="dismiss" data-id="${item.id}" title="Not relevant">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
             </button>
           </div>
         </div>
@@ -1001,6 +1157,9 @@ cardsContainer.addEventListener("click", (e) => {
       btn.closest(".nabdh-card").classList.add("dismissed");
       aiStatusMessage.textContent = "Feedback received — re-ranking...";
       setTimeout(() => rankFeed(), 600);
+    } else if (action === "discuss") {
+      const item = state.rankedFeed.find((it) => it.id === id);
+      if (item) openCardDetail(item);
     }
     return;
   }
@@ -1067,10 +1226,674 @@ function escapeHtml(str) {
 }
 
 /* ══════════════════════════════════════════════════════════════════
+   13. PROFILE POPOVER & CONFIGURATION MODAL CONTROLLER
+   ══════════════════════════════════════════════════════════════════ */
+function showToast(message, duration = 3000) {
+  if (!nabdhToast || !nabdhToastText) return;
+  nabdhToastText.textContent = message;
+  nabdhToast.classList.add("show");
+  clearTimeout(state.toastTimer);
+  state.toastTimer = setTimeout(() => {
+    nabdhToast.classList.remove("show");
+  }, duration);
+}
+
+function initProfilePopoverAndConfig() {
+  if (!userProfileWidget || !profilePopoverMenu) return;
+
+  // Toggle Popover on User Profile Card Click
+  userProfileWidget.addEventListener("click", (e) => {
+    e.stopPropagation();
+    profilePopoverMenu.classList.toggle("open");
+  });
+
+  // Close popover when clicking anywhere else
+  document.addEventListener("click", (e) => {
+    if (!profilePopoverMenu.contains(e.target) && !userProfileWidget.contains(e.target)) {
+      profilePopoverMenu.classList.remove("open");
+    }
+  });
+
+  // Popover items that open Config Modal tabs
+  $$("[data-open-config]").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const tabName = btn.dataset.openConfig;
+      profilePopoverMenu.classList.remove("open");
+      openProfileConfig(tabName);
+    });
+  });
+
+  // Popover Theme Segment Buttons
+  themeSegBtns.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const theme = btn.dataset.theme;
+      setTheme(theme);
+    });
+  });
+
+  // Restore saved theme on startup
+  const savedTheme = localStorage.getItem("nabdh_theme") || "dark";
+  setTheme(savedTheme, false);
+
+  // Popover Feedback Toggle
+  if (popoverFeedbackToggle) {
+    popoverFeedbackToggle.addEventListener("change", (e) => {
+      const active = e.target.checked;
+      showToast(active ? "Feedback button enabled" : "Feedback button disabled");
+    });
+  }
+
+  // Popover Logout Button
+  if (popoverLogoutBtn) {
+    popoverLogoutBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      profilePopoverMenu.classList.remove("open");
+      localStorage.removeItem("nabdh_user");
+      state.user = null;
+      returnToWelcome();
+      showToast("Logged out successfully");
+    });
+  }
+
+  // Additional Popover buttons (Changelog, Docs, Support)
+  const changelogBtn = $("#popover-changelog-btn");
+  if (changelogBtn) {
+    changelogBtn.addEventListener("click", () => {
+      profilePopoverMenu.classList.remove("open");
+      showToast("Nabdh v1.4.0 (Latest hackathon release)");
+    });
+  }
+
+  const docsBtn = $("#popover-docs-btn");
+  if (docsBtn) {
+    docsBtn.addEventListener("click", () => {
+      profilePopoverMenu.classList.remove("open");
+      showToast("Opening Nabdh documentation...");
+    });
+  }
+
+  const supportBtn = $("#popover-support-btn");
+  if (supportBtn) {
+    supportBtn.addEventListener("click", () => {
+      profilePopoverMenu.classList.remove("open");
+      showToast("Nabdh Support: support@nabdh.tn");
+    });
+  }
+
+  // Config Modal Tabs
+  configTabBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetTab = btn.dataset.tab;
+      switchConfigTab(targetTab);
+    });
+  });
+
+  // Close Config Modal Buttons
+  if (configCloseBtn) {
+    configCloseBtn.addEventListener("click", closeProfileConfig);
+  }
+  if (configCancelBtn) {
+    configCancelBtn.addEventListener("click", closeProfileConfig);
+  }
+
+  // Close Config Modal on Backdrop Click
+  if (profileConfigOverlay) {
+    profileConfigOverlay.addEventListener("click", (e) => {
+      if (e.target === profileConfigOverlay) {
+        closeProfileConfig();
+      }
+    });
+  }
+
+  // Close Config Modal on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && profileConfigOverlay?.classList.contains("open")) {
+      closeProfileConfig();
+    }
+  });
+
+  // Save Config Changes
+  if (configSaveBtn) {
+    configSaveBtn.addEventListener("click", saveProfileConfig);
+  }
+
+  // CV Upload inside Config Modal (Strictly PDF check)
+  if (cfgUploadCvTrigger && cfgCvFileInput) {
+    cfgUploadCvTrigger.addEventListener("click", () => {
+      cfgCvFileInput.click();
+    });
+
+    cfgCvFileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const isPdf = file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf");
+      if (!isPdf) {
+        showToast("Error: Only PDF files (.pdf) are accepted!");
+        cfgCvFileInput.value = "";
+        return;
+      }
+
+      const formattedSize = file.size > 1024 * 1024
+        ? `${(file.size / (1024 * 1024)).toFixed(1)} MB`
+        : `${Math.round(file.size / 1024)} KB`;
+
+      if (cfgCurrentCvName) cfgCurrentCvName.textContent = file.name;
+      if (cfgCurrentCvSize) cfgCurrentCvSize.textContent = `${formattedSize} · PDF document`;
+
+      state.profile.cvName = file.name;
+      state.profile.cvSize = `${formattedSize} · PDF document`;
+      localStorage.setItem("nabdh_profile", JSON.stringify(state.profile));
+      showToast(`CV updated: ${file.name}`);
+    });
+  }
+}
+
+function setTheme(theme, notify = true) {
+  themeSegBtns.forEach((b) => {
+    b.classList.toggle("active", b.dataset.theme === theme);
+  });
+
+  let effectiveTheme = theme;
+  if (theme === "system") {
+    effectiveTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  }
+
+  document.documentElement.setAttribute("data-theme", effectiveTheme);
+  localStorage.setItem("nabdh_theme", theme);
+  if (notify) {
+    showToast(`Theme switched to ${theme.charAt(0).toUpperCase() + theme.slice(1)}`);
+  }
+}
+
+function openProfileConfig(tabName = "profile") {
+  if (!profileConfigOverlay) return;
+
+  // Populate fields
+  const cfgFirstName = $("#cfg-first-name");
+  const cfgSurname = $("#cfg-surname");
+  const cfgEmail = $("#cfg-email");
+  const cfgPhone = $("#cfg-phone");
+  const cfgOccupation = $("#cfg-occupation");
+  const cfgLocation = $("#cfg-location");
+  const cfgBio = $("#cfg-bio");
+  const cfgGithub = $("#cfg-github");
+  const cfgLinkedin = $("#cfg-linkedin");
+  const cfgSyncSelect = $("#cfg-sync-select");
+
+  if (cfgFirstName) cfgFirstName.value = state.profile.name || "";
+  if (cfgSurname) cfgSurname.value = state.profile.surname || "";
+  if (cfgEmail) cfgEmail.value = state.user?.email || state.profile.email || "ahmed.bensalem@gmail.com";
+  if (cfgPhone) cfgPhone.value = state.profile.phone || "+216 29 123 456";
+  if (cfgOccupation) cfgOccupation.value = state.profile.occupation || "Full-Stack Developer";
+  if (cfgLocation) cfgLocation.value = state.profile.location || "Tunis, Tunisia";
+  if (cfgBio) cfgBio.value = state.profile.bio || "Passionate about AI, Cloud computing, and Tunisian tech ecosystem.";
+  if (cfgGithub) cfgGithub.value = state.profile.github || "https://github.com/ahmedbensalem";
+  if (cfgLinkedin) cfgLinkedin.value = state.profile.linkedin || "https://linkedin.com/in/ahmedbensalem";
+
+  if (state.profile.cvName && cfgCurrentCvName) {
+    cfgCurrentCvName.textContent = state.profile.cvName;
+    if (cfgCurrentCvSize) cfgCurrentCvSize.textContent = state.profile.cvSize || "PDF document";
+  }
+
+  if (cfgSyncSelect) {
+    cfgSyncSelect.value = String(state.refreshInterval || 25);
+  }
+
+  switchConfigTab(tabName);
+  profileConfigOverlay.classList.add("open");
+}
+
+function closeProfileConfig() {
+  if (profileConfigOverlay) {
+    profileConfigOverlay.classList.remove("open");
+  }
+}
+
+function switchConfigTab(tabName) {
+  configTabBtns.forEach((btn) => {
+    btn.classList.toggle("active", btn.dataset.tab === tabName);
+  });
+
+  configPanels.forEach((panel) => {
+    panel.classList.toggle("active", panel.id === `panel-${tabName}`);
+  });
+}
+
+function saveProfileConfig() {
+  const cfgFirstName = $("#cfg-first-name");
+  const cfgSurname = $("#cfg-surname");
+  const cfgEmail = $("#cfg-email");
+  const cfgPhone = $("#cfg-phone");
+  const cfgOccupation = $("#cfg-occupation");
+  const cfgLocation = $("#cfg-location");
+  const cfgBio = $("#cfg-bio");
+  const cfgGithub = $("#cfg-github");
+  const cfgLinkedin = $("#cfg-linkedin");
+  const cfgSyncSelect = $("#cfg-sync-select");
+
+  if (cfgFirstName && cfgFirstName.value.trim()) state.profile.name = cfgFirstName.value.trim();
+  if (cfgSurname && cfgSurname.value.trim()) state.profile.surname = cfgSurname.value.trim();
+  if (cfgEmail && cfgEmail.value.trim()) state.profile.email = cfgEmail.value.trim();
+  if (cfgPhone) state.profile.phone = cfgPhone.value.trim();
+  if (cfgOccupation && cfgOccupation.value.trim()) state.profile.occupation = cfgOccupation.value.trim();
+  if (cfgLocation) state.profile.location = cfgLocation.value.trim();
+  if (cfgBio) state.profile.bio = cfgBio.value.trim();
+  if (cfgGithub) state.profile.github = cfgGithub.value.trim();
+  if (cfgLinkedin) state.profile.linkedin = cfgLinkedin.value.trim();
+
+  if (cfgSyncSelect) {
+    const newInterval = parseInt(cfgSyncSelect.value, 10);
+    if (newInterval && newInterval !== state.refreshInterval) {
+      state.refreshInterval = newInterval;
+      startAutoSync(newInterval);
+    }
+  }
+
+  // Update App Header / Sidebar Displays
+  const initials = `${state.profile.name.charAt(0)}${state.profile.surname.charAt(0)}`.toUpperCase();
+  if (userAvatarInitial) userAvatarInitial.textContent = initials || "TN";
+  if (userNameDisplay) userNameDisplay.textContent = `${state.profile.name} ${state.profile.surname}`;
+  if (userRoleDisplay) userRoleDisplay.textContent = state.profile.occupation;
+
+  // Persist
+  localStorage.setItem("nabdh_profile", JSON.stringify(state.profile));
+
+  closeProfileConfig();
+  showToast("Profile settings updated successfully!");
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   13b. DETAILED LANDING FEATURE CARDS INTERACTION
+   ══════════════════════════════════════════════════════════════════ */
+function initLandingFeatureCards() {
+  const cards = $$(".feature-detail-card");
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const title = card.querySelector(".feature-card-title")?.textContent || "";
+      if (title.includes("Events")) {
+        state.activeType = "event";
+      } else if (title.includes("AI")) {
+        state.searchQuery = "ai";
+      } else if (title.includes("Cloud")) {
+        state.searchQuery = "cloud";
+      } else if (title.includes("DevOps")) {
+        state.searchQuery = "devops";
+      } else if (title.includes("Cyber")) {
+        state.searchQuery = "cybersec";
+      }
+      welcomeSignupBtn.click();
+    });
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   13c. AI TECH BRIEF & CAREER COPILOT
+   ══════════════════════════════════════════════════════════════════ */
+let aiTodoListData = [];
+
+function initAiBriefAndCopilot() {
+  if (!openAiBriefBtn || !aiBriefOverlay) return;
+
+  // Open modal
+  openAiBriefBtn.addEventListener("click", () => {
+    aiBriefOverlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+    generateAiFeedBrief(false);
+  });
+
+  // Close modal button
+  if (aiBriefCloseBtn) {
+    aiBriefCloseBtn.addEventListener("click", () => {
+      closeAiBriefModal();
+    });
+  }
+
+  // Close on outside click
+  aiBriefOverlay.addEventListener("click", (e) => {
+    if (e.target === aiBriefOverlay) {
+      closeAiBriefModal();
+    }
+  });
+
+  // Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && aiBriefOverlay.classList.contains("open")) {
+      closeAiBriefModal();
+    }
+  });
+
+  // Tab switching
+  aiTabBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const tabId = btn.getAttribute("data-aitab");
+      aiTabBtns.forEach((b) => b.classList.remove("active"));
+      aiPanels.forEach((p) => p.classList.remove("active"));
+
+      btn.classList.add("active");
+      const targetPanel = $(`#ai-panel-${tabId}`);
+      if (targetPanel) targetPanel.classList.add("active");
+    });
+  });
+
+  // Re-analyze button
+  if (btnRefreshAiBrief) {
+    btnRefreshAiBrief.addEventListener("click", () => {
+      generateAiFeedBrief(true);
+    });
+  }
+
+  // Initialize To-Do List & Chat
+  initAiTodoList();
+  initAiChat();
+}
+
+function closeAiBriefModal() {
+  if (!aiBriefOverlay) return;
+  aiBriefOverlay.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+async function generateAiFeedBrief(forceRefresh = false) {
+  if (!aiBriefSawTitle || !aiBriefSawText) return;
+
+  // Visual loading feedback on refresh button
+  if (btnRefreshAiBrief) {
+    btnRefreshAiBrief.disabled = true;
+    btnRefreshAiBrief.innerHTML = `
+      <svg class="spin-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+      <span>Analyzing feed...</span>
+    `;
+  }
+
+  // Collect feed items
+  const feedPool = (state.rankedFeed && state.rankedFeed.length > 0) ? state.rankedFeed : state.items;
+  const recentItems = feedPool.slice(0, 8);
+
+  // Compute tag breakdown
+  const tagCounts = {};
+  let totalTags = 0;
+  recentItems.forEach((item) => {
+    (item.tags || []).forEach((t) => {
+      const tagLower = t.toLowerCase();
+      tagCounts[tagLower] = (tagCounts[tagLower] || 0) + 1;
+      totalTags++;
+    });
+  });
+
+  // Top tags render
+  const sortedTags = Object.entries(tagCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
+
+  if (aiBriefTags && sortedTags.length > 0) {
+    aiBriefTags.innerHTML = sortedTags
+      .map(([tag, count]) => {
+        const pct = Math.round((count / (totalTags || 1)) * 100);
+        return `<span class="ai-chip">#${tag} (${pct}%)</span>`;
+      })
+      .join("");
+  }
+
+  const titles = recentItems.map((i) => `"${i.title}" (${(i.tags || []).join(", ")})`).join("; ");
+  const userRole = state.profile.occupation || "Software Engineer";
+  const userInterests = (state.profile.interests || ["AI", "Fullstack", "Cloud"]).join(", ");
+
+  const systemPrompt = `You are the Nabdh AI Tech Analyst for Tunisian tech professionals. 
+Analyze the provided user feed and generate a concise 3-part structured JSON:
+1. "saw_title": A sharp 5-9 word headline summarizing the core theme of what they just viewed.
+2. "saw_text": A crisp 2-3 sentence synthesis of what was viewed in the feed, highlighting technical topics (e.g. AI, cloud, local hackathons, Tunisian companies).
+3. "world_title": A sharp 5-9 word headline on how this connects to global tech + Tunisian tech landscape.
+4. "world_text": A crisp 2-3 sentence analysis of macro tech trends (e.g., lightweight LLMs, sovereign cloud, remote engineering demand in Tunisia/Europe).
+5. "advice_title": A sharp headline for actionable advice.
+6. "advice_text": A crisp 2-3 sentence strategic career advice tailored for a ${userRole} interested in ${userInterests}.
+
+Return ONLY valid JSON matching this schema:
+{
+  "saw_title": string,
+  "saw_text": string,
+  "world_title": string,
+  "world_text": string,
+  "advice_title": string,
+  "advice_text": string
+}`;
+
+  const userPrompt = `USER PROFILE:
+Role: ${userRole}
+Interests: ${userInterests}
+
+ITEMS IN FEED:
+${titles}`;
+
+  try {
+    const raw = await callGeminiAPI(systemPrompt, userPrompt);
+    const parsed = JSON.parse(raw);
+    if (parsed.saw_title) aiBriefSawTitle.textContent = parsed.saw_title;
+    if (parsed.saw_text) aiBriefSawText.textContent = parsed.saw_text;
+    if (parsed.world_title) aiBriefWorldTitle.textContent = parsed.world_title;
+    if (parsed.world_text) aiBriefWorldText.textContent = parsed.world_text;
+    if (parsed.advice_title) aiBriefAdviceTitle.textContent = parsed.advice_title;
+    if (parsed.advice_text) aiBriefAdviceText.textContent = parsed.advice_text;
+  } catch (err) {
+    console.warn("AI Feed Brief fallback used:", err);
+    // Intelligent contextual fallback
+    const topTag = sortedTags[0] ? sortedTags[0][0].toUpperCase() : "AI & CLOUD";
+    aiBriefSawTitle.textContent = `Deep Dive: ${topTag} & Modern Infrastructure in Tunisia`;
+    aiBriefSawText.textContent = `Your feed spotlighted practical ${userInterests} engineering, cloud deployments across Tunisian companies (Vermeg, Telnet, Expensya alumni), and upcoming student hackathons at INSAT & ESPRIT.`;
+    aiBriefWorldTitle.textContent = "Open-Source LLMs, Edge AI & Cloud Sovereignity";
+    aiBriefWorldText.textContent = "Globally, lightweight reasoning models like Gemini 2.0 Flash are democratizing AI integration into web apps. In Tunisia, demand is surging for engineers capable of bridging modern full-stack with intelligent AI microservices.";
+    aiBriefAdviceTitle.textContent = `Strategic 30-Day Plan for ${state.profile.name || "You"}`;
+    aiBriefAdviceText.textContent = `Double down on containerizing AI workflows using Docker and FastAPI. Build one high-visibility portfolio project tailored to local Tunisian datasets or Darija NLP to catch tech recruiters' attention.`;
+  } finally {
+    if (btnRefreshAiBrief) {
+      btnRefreshAiBrief.disabled = false;
+      btnRefreshAiBrief.innerHTML = `
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        <span>Re-analyze Feed</span>
+      `;
+    }
+  }
+}
+
+/* ── To-Do List Management ────────────────────────────────── */
+function initAiTodoList() {
+  const saved = localStorage.getItem("nabdh_ai_todos");
+  if (saved) {
+    try {
+      aiTodoListData = JSON.parse(saved);
+    } catch (e) {
+      aiTodoListData = [];
+    }
+  }
+
+  if (!aiTodoListData || aiTodoListData.length === 0) {
+    aiTodoListData = [
+      { id: "td1", text: "Integrate Gemini 2.0 Flash API in a test sandbox project", done: false },
+      { id: "td2", text: "Containerize web application using a multi-stage Dockerfile", done: true },
+      { id: "td3", text: "RSVP for the upcoming INSAT AI & Cloud Hackathon", done: false },
+      { id: "td4", text: "Publish an open-source Darija NLP or Tunisian Tech repository on GitHub", done: false },
+      { id: "td5", text: "Optimize fullstack CI/CD pipeline using GitHub Actions", done: false }
+    ];
+    saveAiTodoList();
+  }
+
+  renderAiTodoList();
+
+  if (aiTodoAddForm && aiTodoInput) {
+    aiTodoAddForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const val = aiTodoInput.value.trim();
+      if (!val) return;
+      aiTodoListData.push({
+        id: "td_" + Date.now(),
+        text: val,
+        done: false
+      });
+      aiTodoInput.value = "";
+      saveAiTodoList();
+      renderAiTodoList();
+    });
+  }
+}
+
+function saveAiTodoList() {
+  localStorage.setItem("nabdh_ai_todos", JSON.stringify(aiTodoListData));
+}
+
+function renderAiTodoList() {
+  if (!aiTodoList) return;
+  aiTodoList.innerHTML = "";
+
+  const completedCount = aiTodoListData.filter((t) => t.done).length;
+  if (todoProgressText) {
+    todoProgressText.textContent = `${completedCount} of ${aiTodoListData.length} completed`;
+  }
+
+  aiTodoListData.forEach((item) => {
+    const el = document.createElement("div");
+    el.className = `todo-item ${item.done ? "done" : ""}`;
+    el.innerHTML = `
+      <input type="checkbox" class="todo-checkbox" ${item.done ? "checked" : ""} aria-label="Mark task done" />
+      <span class="todo-text">${escapeHtml(item.text)}</span>
+      <button type="button" class="todo-delete-btn" title="Delete task">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    `;
+
+    const checkbox = el.querySelector(".todo-checkbox");
+    checkbox.addEventListener("change", () => {
+      item.done = checkbox.checked;
+      saveAiTodoList();
+      renderAiTodoList();
+    });
+
+    const deleteBtn = el.querySelector(".todo-delete-btn");
+    deleteBtn.addEventListener("click", () => {
+      aiTodoListData = aiTodoListData.filter((t) => t.id !== item.id);
+      saveAiTodoList();
+      renderAiTodoList();
+    });
+
+    aiTodoList.appendChild(el);
+  });
+}
+
+/* ── Interactive Copilot Chat ─────────────────────────────── */
+function initAiChat() {
+  if (!aiChatForm || !aiChatInput || !aiChatMessages) return;
+
+  aiChatForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const query = aiChatInput.value.trim();
+    if (!query) return;
+    aiChatInput.value = "";
+    await sendAiChatMessage(query);
+  });
+
+  const suggestions = $$(".chat-suggest-btn");
+  suggestions.forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const q = btn.getAttribute("data-query") || btn.textContent.trim();
+      await sendAiChatMessage(q);
+    });
+  });
+}
+
+async function sendAiChatMessage(query) {
+  // Append user message
+  appendChatMessage("user", query);
+
+  // Append AI typing bubble
+  const typingId = "ai-typing-" + Date.now();
+  const typingBubble = document.createElement("div");
+  typingBubble.className = "chat-msg ai-msg";
+  typingBubble.id = typingId;
+  typingBubble.innerHTML = `
+    <div class="msg-avatar">AI</div>
+    <div class="msg-bubble">
+      <div class="ai-typing-indicator">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  `;
+  aiChatMessages.appendChild(typingBubble);
+  aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+
+  // Build context
+  const userRole = state.profile.occupation || "Developer";
+  const userInterests = (state.profile.interests || ["AI", "Tech"]).join(", ");
+  const feedHeadlines = (state.rankedFeed || state.items || []).slice(0, 5).map((i) => i.title).join("; ");
+
+  const systemInstruction = `You are Nabdh AI Copilot, an elite technical advisor and career mentor for Tunisian tech professionals, students, and engineers.
+Context:
+- User is: ${userRole}, interested in ${userInterests}.
+- Recent feed highlights: ${feedHeadlines}.
+- Focus on practical, actionable advice, clear code/architectural suggestions, and realistic opportunities in Tunisia and remote tech.
+- Format responses cleanly using short paragraphs and bullet points.`;
+
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+    const body = {
+      system_instruction: { parts: [{ text: systemInstruction }] },
+      contents: [{ role: "user", parts: [{ text: query }] }],
+      generationConfig: { temperature: 0.7, maxOutputTokens: 1200, topP: 0.95 }
+    };
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text || "I was unable to formulate a response. Please try again.";
+
+    // Remove typing bubble and append AI reply
+    const el = document.getElementById(typingId);
+    if (el) el.remove();
+    appendChatMessage("ai", replyText);
+  } catch (err) {
+    console.warn("AI Chat error:", err);
+    const el = document.getElementById(typingId);
+    if (el) el.remove();
+    appendChatMessage("ai", `I'm currently operating in offline mode. Here is a quick insight on your question:
+- For **${escapeHtml(query)}**: Focus on combining clean full-stack fundamentals (Next.js/FastAPI) with containerized deployment (Docker) and exploring open-source AI integrations. Check the **Roadmap** and **Action To-Do List** tabs for your immediate next steps!`);
+  }
+}
+
+function appendChatMessage(role, text) {
+  if (!aiChatMessages) return;
+  const msgEl = document.createElement("div");
+  msgEl.className = `chat-msg ${role === "user" ? "user-msg" : "ai-msg"}`;
+
+  // Simple formatting for bold, bullets, and linebreaks
+  const formatted = escapeHtml(text)
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\n\s*-\s*(.*?)(?=\n|$)/g, "<li>$1</li>")
+    .replace(/\n\n/g, "<br><br>")
+    .replace(/\n/g, "<br>");
+
+  msgEl.innerHTML = `
+    <div class="msg-avatar">${role === "user" ? (state.profile.name ? state.profile.name[0].toUpperCase() : "U") : "AI"}</div>
+    <div class="msg-bubble">
+      <p>${formatted}</p>
+    </div>
+  `;
+  aiChatMessages.appendChild(msgEl);
+  aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+}
+
+/* ══════════════════════════════════════════════════════════════════
    14. BOOTSTRAP
    ══════════════════════════════════════════════════════════════════ */
 initCustomSelects();
 initRegisterInterestGrid();
+initCvUpload();
+initProfilePopoverAndConfig();
+initLandingFeatureCards();
+initAiBriefAndCopilot();
 
 // Restore profile data into memory if saved, but ALWAYS show the welcome/home page first on refresh
 const savedProfile = JSON.parse(localStorage.getItem("nabdh_profile") || "null");

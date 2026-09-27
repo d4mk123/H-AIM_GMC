@@ -16,7 +16,7 @@
     href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=11" />
 </head>
 
 <body class="nabdh-app">
@@ -213,15 +213,114 @@
         <p class="features-sub">Your whole ecosystem in one ranked stream. Only what is worth reading, none of the
           noise.</p>
 
-        <div class="features-pill-row">
-          <span class="feature-pill active">Feed</span>
-          <span class="feature-pill">Jobs</span>
-          <span class="feature-pill">Internships</span>
-          <span class="feature-pill">Tech Events</span>
-          <span class="feature-pill">Squads</span>
-          <span class="feature-pill">AI Reasoning</span>
-          <span class="feature-pill">Bookmarks</span>
-          <span class="feature-pill">Streaks</span>
+        <div class="features-detail-grid">
+          <!-- Card 1: Feed -->
+          <div class="feature-detail-card" role="button" tabindex="0">
+            <div class="feature-card-top">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            </div>
+            <h3 class="feature-card-title">Personalized Pulse</h3>
+            <p class="feature-card-desc">One AI-ranked feed consolidating Tunisian tech news, infrastructure milestones, and opportunities tuned to your exact developer stack.</p>
+            <div class="feature-card-meta">
+              <span>Live auto-sync every 25s</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Tech Events -->
+          <div class="feature-detail-card" role="button" tabindex="0">
+            <div class="feature-card-top">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <h3 class="feature-card-title">Tech Events &amp; Jams</h3>
+            <p class="feature-card-desc">Never miss hackathons at INSAT, GDG Tunis meetups, AWS Community Days, and university club workshops across Tunisia.</p>
+            <div class="feature-card-meta">
+              <span>INSAT · El Ghazala · Sousse</span>
+            </div>
+          </div>
+
+          <!-- Card 3: AI Fit Reasoning -->
+          <div class="feature-detail-card" role="button" tabindex="0">
+            <div class="feature-card-top">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z"/><circle cx="12" cy="15" r="2"/></svg>
+            </div>
+            <h3 class="feature-card-title">Gemini 2.0 Reasoning</h3>
+            <p class="feature-card-desc">Transparent match percentages and rationale on every post, explaining why an item was prioritized for your skill profile.</p>
+            <div class="feature-card-meta">
+              <span>Fit scores up to 99%</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Streaks -->
+          <div class="feature-detail-card" role="button" tabindex="0">
+            <div class="feature-card-top">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+            </div>
+            <h3 class="feature-card-title">Knowledge Streaks</h3>
+            <p class="feature-card-desc">Stay ahead of the curve every day. Build your reading streak, track your tech discovery habits, and earn community recognition.</p>
+            <div class="feature-card-meta">
+              <span>Daily read streak tracking</span>
+            </div>
+          </div>
+
+          <!-- Card 5: Bookmarks -->
+          <div class="feature-detail-card" role="button" tabindex="0">
+            <div class="feature-card-top">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h3 class="feature-card-title">Offline Bookmarks</h3>
+            <p class="feature-card-desc">Save tutorials, high-impact releases, and hackathon links with one click. Read anytime from your saved reading list.</p>
+            <div class="feature-card-meta">
+              <span>1-click instant bookmarking</span>
+            </div>
+          </div>
+
+          <!-- Card 6: #AI -->
+          <div class="feature-detail-card" role="button" tabindex="0">
+            <div class="feature-card-top">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+            </div>
+            <h3 class="feature-card-title">Artificial Intelligence &amp; ML</h3>
+            <p class="feature-card-desc">Local LLM research, Darija NLP benchmarks, computer vision spin-offs, and InstaDeep alumni engineering developments.</p>
+            <div class="feature-card-meta">
+              <span>LLMs · NLP · Computer Vision</span>
+            </div>
+          </div>
+
+          <!-- Card 7: #cloud -->
+          <div class="feature-detail-card" role="button" tabindex="0">
+            <div class="feature-card-top">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            </div>
+            <h3 class="feature-card-title">Cloud &amp; Infrastructure</h3>
+            <p class="feature-card-desc">AWS, GCP, Azure, and private datacenter deployments across Tunisian fintechs, telecoms, and international engineering centers.</p>
+            <div class="feature-card-meta">
+              <span>Multi-Region · Hybrid Architecture</span>
+            </div>
+          </div>
+
+          <!-- Card 8: #DevOps -->
+          <div class="feature-detail-card" role="button" tabindex="0">
+            <div class="feature-card-top">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3 class="feature-card-title">DevOps &amp; CI/CD Pipelines</h3>
+            <p class="feature-card-desc">Docker containers, Kubernetes clusters, Terraform infrastructure as code, and automated GitHub Actions deployment pipelines.</p>
+            <div class="feature-card-meta">
+              <span>Kubernetes · Terraform · CI/CD</span>
+            </div>
+          </div>
+
+          <!-- Card 9: #CyberSec -->
+          <div class="feature-detail-card" role="button" tabindex="0">
+            <div class="feature-card-top">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3 class="feature-card-title">Cybersecurity Tunisia</h3>
+            <p class="feature-card-desc">National ANSI advisories, zero-day mitigation strategies, bug bounty discoveries, and Carthage CyberSec CTF challenges.</p>
+            <div class="feature-card-meta">
+              <span>ANSI Alerts · CTF Challenges</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -286,7 +385,7 @@
     <!-- Footer -->
     <footer class="landing-footer">
       <div class="footer-copy">Nabdh. The Pulse of Tunisian Tech, Personalized.</div>
-      <div class="footer-tags">Built with Google Gemini AI for GOMYCODE Hackathon</div>
+      <div class="footer-tags">Built by H-Aim for GOMYCODE Hackathon</div>
     </footer>
   </div>
 
@@ -487,6 +586,51 @@
               </div>
             </div>
 
+            <!-- CV / Resume Upload (PDF Only) -->
+            <div class="form-group">
+              <label for="reg-cv-file">Upload your CV / Resume <span class="badge-optional">PDF Only</span></label>
+              <div class="cv-upload-zone" id="cv-upload-zone">
+                <input type="file" id="reg-cv-file" accept="application/pdf, .pdf" style="display: none;" />
+                <div class="cv-upload-content" id="cv-upload-content">
+                  <div class="cv-upload-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                      <polyline points="14 2 14 8 20 8" />
+                      <line x1="12" y1="18" x2="12" y2="12" />
+                      <line x1="9" y1="15" x2="15" y2="15" />
+                    </svg>
+                  </div>
+                  <div class="cv-upload-text">
+                    <span class="cv-upload-title">Click to upload or drag &amp; drop your CV</span>
+                    <span class="cv-upload-sub">Strictly PDF files (.pdf) up to 10MB</span>
+                  </div>
+                </div>
+                <div class="cv-file-preview" id="cv-file-preview" style="display: none;">
+                  <div class="cv-file-info">
+                    <div class="pdf-icon-badge">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                      </svg>
+                      <span class="pdf-badge-tag">PDF</span>
+                    </div>
+                    <div class="cv-file-details">
+                      <span class="cv-filename" id="cv-filename">resume.pdf</span>
+                      <span class="cv-filesize" id="cv-filesize">240 KB</span>
+                    </div>
+                  </div>
+                  <button type="button" class="btn-remove-cv" id="btn-remove-cv" title="Remove PDF">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <p class="form-subtext">The AI parses your CV to extract skills and prioritize matching jobs &amp;
+                internships.</p>
+            </div>
+
             <div class="form-group">
               <label>Your Tech Interests</label>
               <p class="form-subtext">Select all that apply — the AI uses these to rank your feed.</p>
@@ -586,32 +730,222 @@
       </nav>
 
       <div class="nav-section">
-        <div class="nav-label">TUNISIAN SQUADS</div>
-        <div class="squads-list" id="squads-nav">
-          <!-- Squads injected by JS -->
-        </div>
-      </div>
-
-      <div class="nav-section">
         <div class="nav-label">POPULAR TAGS</div>
         <div class="sidebar-tags" id="sidebar-tags">
           <button class="mini-tag" data-tag="AI">#AI</button>
           <button class="mini-tag" data-tag="cloud">#cloud</button>
-          <button class="mini-tag" data-tag="internship">#internship</button>
-          <button class="mini-tag" data-tag="fintech">#fintech</button>
           <button class="mini-tag" data-tag="DevOps">#DevOps</button>
+          <button class="mini-tag" data-tag="fintech">#fintech</button>
           <button class="mini-tag" data-tag="robotics">#robotics</button>
+          <button class="mini-tag" data-tag="Python">#Python</button>
+          <button class="mini-tag" data-tag="React">#React</button>
+          <button class="mini-tag" data-tag="Nextjs">#Nextjs</button>
+          <button class="mini-tag" data-tag="CyberSec">#CyberSec</button>
+          <button class="mini-tag" data-tag="OpenSource">#OpenSource</button>
+          <button class="mini-tag" data-tag="Docker">#Docker</button>
+          <button class="mini-tag" data-tag="Flutter">#Flutter</button>
+          <button class="mini-tag" data-tag="Startups">#Startups</button>
+          <button class="mini-tag" data-tag="DataScience">#DataScience</button>
         </div>
       </div>
 
+      <!-- AI Tech Brief & Career Copilot Button Widget -->
+      <div class="sidebar-ai-section">
+        <button type="button" class="sidebar-ai-copilot-btn" id="open-ai-brief-btn">
+          <div class="ai-btn-glow"></div>
+          <div class="ai-btn-content">
+            <div class="ai-btn-icon-wrapper">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+              </svg>
+            </div>
+            <div class="ai-btn-texts">
+              <span class="ai-btn-title">AI Brief &amp; Copilot</span>
+              <span class="ai-btn-sub">Digest · Roadmap · Chat</span>
+            </div>
+            <span class="ai-btn-badge">AI 2.0</span>
+          </div>
+        </button>
+      </div>
+
       <div class="sidebar-footer">
-        <div class="user-card" id="user-profile-widget">
+        <!-- Floating Profile Popover (styled like reference photo) -->
+        <div class="profile-popover-menu" id="profile-popover-menu">
+          <!-- Section 1: Main profile links -->
+          <div class="popover-group">
+            <button type="button" class="popover-item" data-open-config="profile">
+              <svg class="popover-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <span>Your profile</span>
+            </button>
+            <button type="button" class="popover-item" data-open-config="security">
+              <svg class="popover-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              <span>Security</span>
+            </button>
+            <button type="button" class="popover-item" data-open-config="confidential">
+              <svg class="popover-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+              <span>Confidential</span>
+            </button>
+            <button type="button" class="popover-item" data-open-config="info">
+              <svg class="popover-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="16" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12.01" y2="8" />
+              </svg>
+              <span>Info &amp; CV</span>
+            </button>
+            <button type="button" class="popover-item" data-open-config="analytics">
+              <svg class="popover-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <line x1="18" y1="20" x2="18" y2="10" />
+                <line x1="12" y1="20" x2="12" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="14" />
+              </svg>
+              <span>Analytics</span>
+            </button>
+          </div>
+
+          <div class="popover-divider"></div>
+
+          <!-- Theme Row -->
+          <div class="popover-theme-row">
+            <span class="theme-label">Theme</span>
+            <div class="theme-segment-pill">
+              <button type="button" class="theme-seg-btn active" data-theme="dark" title="Dark theme">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              </button>
+              <button type="button" class="theme-seg-btn" data-theme="light" title="Light theme">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="5" />
+                  <line x1="12" y1="1" x2="12" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="23" />
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                  <line x1="1" y1="12" x2="3" y2="12" />
+                  <line x1="21" y1="12" x2="23" y2="12" />
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+              </button>
+              <button type="button" class="theme-seg-btn" data-theme="system" title="System theme">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 2v20a10 10 0 0 0 0-20z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="popover-divider"></div>
+
+          <!-- Section 2: Settings, Subscriptions, Invites -->
+          <div class="popover-group">
+            <button type="button" class="popover-item" data-open-config="settings">
+              <svg class="popover-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+              </svg>
+              <span>Settings</span>
+            </button>
+            <button type="button" class="popover-item" data-open-config="subscriptions">
+              <svg class="popover-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                <line x1="1" y1="10" x2="23" y2="10" />
+              </svg>
+              <span>Subscriptions</span>
+            </button>
+            <button type="button" class="popover-item" data-open-config="invite">
+              <svg class="popover-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              <span>Invite friends</span>
+            </button>
+          </div>
+
+          <div class="popover-divider"></div>
+
+          <!-- Section 3: Changelog, Docs, Support -->
+          <div class="popover-group">
+            <button type="button" class="popover-item" id="popover-changelog-btn">
+              <svg class="popover-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                <line x1="8" y1="21" x2="16" y2="21" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+              </svg>
+              <span>Changelog</span>
+            </button>
+            <button type="button" class="popover-item" id="popover-docs-btn">
+              <svg class="popover-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
+              <span>Docs</span>
+            </button>
+            <button type="button" class="popover-item" id="popover-support-btn">
+              <svg class="popover-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+              <span>Support</span>
+            </button>
+          </div>
+
+          <!-- Feedback Button Toggle Row -->
+          <div class="popover-toggle-row">
+            <span>Feedback button</span>
+            <label class="switch-pill">
+              <input type="checkbox" id="popover-feedback-toggle" checked />
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <div class="popover-divider"></div>
+
+          <!-- Log out row -->
+          <div class="popover-group">
+            <button type="button" class="popover-item popover-item--danger" id="popover-logout-btn">
+              <svg class="popover-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              <span>Log out</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="user-card" id="user-profile-widget" role="button" tabindex="0" title="Click to open profile menu">
           <div class="user-avatar" id="user-avatar-initial">AB</div>
           <div class="user-info">
             <span class="user-role" id="user-name-display">Ahmed Ben Salem</span>
             <span class="user-interests-count" id="user-role-display">CS Student</span>
           </div>
-          <button class="btn-icon" id="quick-logout-btn" title="Log out">
+          <button class="btn-icon" id="quick-logout-btn" title="Quick log out">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
               <polyline points="16 17 21 12 16 7" />
@@ -669,9 +1003,7 @@
         <div class="content-pills" id="type-pills">
           <button class="pill-btn active" data-type="all">All</button>
           <button class="pill-btn" data-type="news">News</button>
-          <button class="pill-btn" data-type="job">Jobs</button>
-          <button class="pill-btn" data-type="internship">Internships</button>
-          <button class="pill-btn" data-type="event">Events</button>
+          <button class="pill-btn" data-type="event">Tech Events</button>
         </div>
 
         <div class="feed-meta-stats" id="active-squad-badge">
@@ -822,7 +1154,491 @@
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 5. PROFILE & PREFERENCES CONFIGURATION MODAL        -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="profile-config-overlay" id="profile-config-overlay">
+    <div class="profile-config-container">
+      <!-- Modal Header -->
+      <div class="config-modal-header">
+        <div class="config-header-left">
+          <h2>Account &amp; Preferences</h2>
+          <p>Configure your profile, security credentials, confidentiality, and AI feed preferences.</p>
+        </div>
+        <button type="button" class="config-close-btn" id="config-close-btn" title="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="config-modal-body">
+        <!-- Tabs Nav -->
+        <nav class="config-nav-tabs">
+          <button type="button" class="config-tab-btn active" data-tab="profile">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            <span>Your Profile</span>
+          </button>
+          <button type="button" class="config-tab-btn" data-tab="security">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            <span>Security</span>
+          </button>
+          <button type="button" class="config-tab-btn" data-tab="confidential">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            <span>Confidential</span>
+          </button>
+          <button type="button" class="config-tab-btn" data-tab="info">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+            <span>Info &amp; CV</span>
+          </button>
+          <button type="button" class="config-tab-btn" data-tab="settings">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+            <span>Preferences</span>
+          </button>
+          <button type="button" class="config-tab-btn" data-tab="subscriptions">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+              <line x1="1" y1="10" x2="23" y2="10" />
+            </svg>
+            <span>Subscriptions</span>
+          </button>
+        </nav>
+
+        <!-- Panels Wrapper -->
+        <div class="config-panels-wrapper">
+          <!-- Panel 1: Profile -->
+          <div class="config-panel active" id="panel-profile">
+            <h3 class="panel-heading">Personal Information</h3>
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label for="cfg-first-name">First Name</label>
+                <input type="text" id="cfg-first-name" />
+              </div>
+              <div class="form-group">
+                <label for="cfg-surname">Surname</label>
+                <input type="text" id="cfg-surname" />
+              </div>
+            </div>
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label for="cfg-email">Email Address</label>
+                <input type="email" id="cfg-email" />
+              </div>
+              <div class="form-group">
+                <label for="cfg-phone">Phone Number</label>
+                <input type="tel" id="cfg-phone" />
+              </div>
+            </div>
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label for="cfg-occupation">Role / Occupation</label>
+                <input type="text" id="cfg-occupation" />
+              </div>
+              <div class="form-group">
+                <label for="cfg-location">Location / City</label>
+                <input type="text" id="cfg-location" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="cfg-bio">Bio / Headline</label>
+              <input type="text" id="cfg-bio" placeholder="e.g. Backend developer passionate about Python &amp; AI" />
+            </div>
+          </div>
+
+          <!-- Panel 2: Security -->
+          <div class="config-panel" id="panel-security">
+            <h3 class="panel-heading">Security &amp; Login Credentials</h3>
+            <div class="form-group">
+              <label for="cfg-curr-pwd">Current Password</label>
+              <input type="password" id="cfg-curr-pwd" placeholder="Enter current password" />
+            </div>
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label for="cfg-new-pwd">New Password</label>
+                <input type="password" id="cfg-new-pwd" placeholder="Minimum 8 characters" />
+              </div>
+              <div class="form-group">
+                <label for="cfg-confirm-pwd">Confirm Password</label>
+                <input type="password" id="cfg-confirm-pwd" placeholder="Re-enter new password" />
+              </div>
+            </div>
+            <div class="config-setting-row">
+              <div>
+                <div class="setting-title">Two-Factor Authentication (2FA)</div>
+                <div class="setting-desc">Add an extra layer of security using an authenticator app</div>
+              </div>
+              <label class="switch-pill">
+                <input type="checkbox" id="cfg-2fa-toggle" />
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+            <div class="config-setting-row">
+              <div>
+                <div class="setting-title">Active Sessions</div>
+                <div class="setting-desc">Windows 11 · Chrome · Tunis, Tunisia (Active Now)</div>
+              </div>
+              <span class="session-badge">Current</span>
+            </div>
+          </div>
+
+          <!-- Panel 3: Confidentiality -->
+          <div class="config-panel" id="panel-confidential">
+            <h3 class="panel-heading">Confidentiality &amp; Privacy</h3>
+            <div class="config-setting-row">
+              <div>
+                <div class="setting-title">Profile Visibility</div>
+                <div class="setting-desc">Choose who can view your profile and tech stack</div>
+              </div>
+              <select id="cfg-visibility-select" class="config-inline-select">
+                <option value="public">Public (All Developers)</option>
+                <option value="tunisia">Tunisia Community Only</option>
+                <option value="private">Private / Anonymous</option>
+              </select>
+            </div>
+            <div class="config-setting-row">
+              <div>
+                <div class="setting-title">AI Personalized Learning</div>
+                <div class="setting-desc">Allow Gemini AI to adapt feed recommendations based on your reads &amp;
+                  bookmarks</div>
+              </div>
+              <label class="switch-pill">
+                <input type="checkbox" id="cfg-ai-learning-toggle" checked />
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+            <div class="config-setting-row">
+              <div>
+                <div class="setting-title">Hide Contact Information</div>
+                <div class="setting-desc">Keep your email and phone number confidential until you apply for jobs</div>
+              </div>
+              <label class="switch-pill">
+                <input type="checkbox" id="cfg-hide-contact-toggle" checked />
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Panel 4: Info & CV -->
+          <div class="config-panel" id="panel-info">
+            <h3 class="panel-heading">Account Info &amp; CV Management</h3>
+            <div class="cfg-cv-card">
+              <div class="cfg-cv-left">
+                <div class="pdf-icon-badge">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                  </svg>
+                  <span class="pdf-badge-tag">PDF</span>
+                </div>
+                <div class="cfg-cv-info">
+                  <span class="cfg-cv-title" id="cfg-current-cv-name">No CV uploaded</span>
+                  <span class="cfg-cv-meta" id="cfg-current-cv-size">Strictly PDF files (.pdf)</span>
+                </div>
+              </div>
+              <button type="button" class="btn-secondary btn-sm" id="cfg-upload-cv-trigger">
+                <span>Upload PDF</span>
+              </button>
+              <input type="file" id="cfg-cv-file-input" accept="application/pdf, .pdf" style="display: none;" />
+            </div>
+            <div class="form-row-2col" style="margin-top: 1rem;">
+              <div class="form-group">
+                <label for="cfg-github">GitHub Profile URL</label>
+                <input type="url" id="cfg-github" placeholder="https://github.com/username" />
+              </div>
+              <div class="form-group">
+                <label for="cfg-linkedin">LinkedIn Profile URL</label>
+                <input type="url" id="cfg-linkedin" placeholder="https://linkedin.com/in/username" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel 5: Preferences -->
+          <div class="config-panel" id="panel-settings">
+            <h3 class="panel-heading">Feed Sync &amp; Notification Preferences</h3>
+            <div class="form-group">
+              <label for="cfg-sync-select">Auto-Sync Interval</label>
+              <select id="cfg-sync-select" class="config-inline-select">
+                <option value="25">25 seconds (Fast demo)</option>
+                <option value="60">1 minute</option>
+                <option value="300">5 minutes</option>
+                <option value="900">15 minutes</option>
+                <option value="3600">1 hour</option>
+              </select>
+            </div>
+            <div class="config-setting-row">
+              <div>
+                <div class="setting-title">Desktop Notifications</div>
+                <div class="setting-desc">Alert when a high-match (>90%) job or tech news arrives</div>
+              </div>
+              <label class="switch-pill">
+                <input type="checkbox" id="cfg-notifications-toggle" checked />
+                <span class="switch-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Panel 6: Subscriptions -->
+          <div class="config-panel" id="panel-subscriptions">
+            <h3 class="panel-heading">Subscriptions &amp; Member Tier</h3>
+            <div class="cfg-tier-card">
+              <div class="tier-badge">FREE COMMUNITY TIER</div>
+              <h4>Nabdh Developer Edition</h4>
+              <p>Unlimited AI semantic feed ranking, real-time sync, bookmarking, and local Tunisian tech job matches.
+              </p>
+              <span class="tier-status">✓ Active for Hackathon 2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="config-modal-footer">
+        <button type="button" class="btn-secondary" id="config-cancel-btn">Cancel</button>
+        <button type="button" class="btn-primary" id="config-save-btn">
+          <span>Save Changes</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 6. AI TECH BRIEF, ROADMAP & COPILOT MODAL           -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="ai-brief-overlay" id="ai-brief-overlay">
+    <div class="ai-brief-container">
+      <!-- Modal Header -->
+      <div class="ai-brief-header">
+        <div class="ai-header-left">
+          <div class="ai-header-badge">
+            <span class="ai-pulse-dot"></span>
+            <span>Gemini 2.0 Tech Intelligence</span>
+          </div>
+          <h2>AI Feed Digest &amp; Career Copilot</h2>
+          <p>Real-time analysis of what you saw, global tech context, tailored roadmap &amp; interactive assistant.</p>
+        </div>
+        <button type="button" class="config-close-btn" id="ai-brief-close-btn" title="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="ai-brief-tabs">
+        <button type="button" class="ai-tab-btn active" data-aitab="brief">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Feed &amp; World Digest</span>
+        </button>
+        <button type="button" class="ai-tab-btn" data-aitab="roadmap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+          <span>Custom Roadmap</span>
+        </button>
+        <button type="button" class="ai-tab-btn" data-aitab="todolist">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <span>Action To-Do List</span>
+        </button>
+        <button type="button" class="ai-tab-btn" data-aitab="chat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Copilot Chat</span>
+        </button>
+      </nav>
+
+      <!-- Modal Body Panels -->
+      <div class="ai-brief-body">
+        <!-- Panel 1: Brief & World Context -->
+        <div class="ai-panel active" id="ai-panel-brief">
+          <div class="ai-brief-grid">
+            <!-- Box 1: What You Just Saw -->
+            <div class="ai-insight-box">
+              <div class="ai-box-label">
+                <span class="ai-dot-indicator"></span>
+                <span>SYNTHESIS OF WHAT YOU JUST SAW</span>
+              </div>
+              <h3 id="ai-brief-saw-title">Deep Dive: AI Acceleration &amp; Modern Infrastructure in Tunisia</h3>
+              <p id="ai-brief-saw-text">
+                Your feed was centered around national AI strategies, large language model implementations (Darija NLP), and cloud native architectures across Vermeg, Telnet, and Tunisian startups. You also reviewed study jams and university hackathons at INSAT.
+              </p>
+              <div class="ai-tags-detected" id="ai-brief-tags">
+                <span class="ai-chip">#AI (38%)</span>
+                <span class="ai-chip">#cloud (27%)</span>
+                <span class="ai-chip">#DevOps (20%)</span>
+                <span class="ai-chip">#events (15%)</span>
+              </div>
+            </div>
+
+            <!-- Box 2: What's Going on in the World & Tunisia -->
+            <div class="ai-insight-box">
+              <div class="ai-box-label">
+                <span class="ai-dot-indicator pulse"></span>
+                <span>MACRO TECH PULSE (GLOBAL &amp; TUNISIA)</span>
+              </div>
+              <h3 id="ai-brief-world-title">Open-Source LLMs &amp; Sovereign Cloud Infrastructure</h3>
+              <p id="ai-brief-world-text">
+                Globally, lightweight reasoning models (Gemini Flash, DeepSeek, LLaMA 3.3) are replacing heavy enterprise architectures. In Tunisia, tech hubs in Tunis and Sousse are aggressively shifting towards multi-cloud resilience and AI-first product development with significant cross-border engineering demand.
+              </p>
+            </div>
+
+            <!-- Box 3: Strategic Advice -->
+            <div class="ai-insight-box ai-advice-box">
+              <div class="ai-box-label">
+                <span class="ai-dot-indicator" style="background:#00e5a0;"></span>
+                <span>AI STRATEGIC ADVICE FOR YOU</span>
+              </div>
+              <h3 id="ai-brief-advice-title">Recommended Strategy for Next 30 Days</h3>
+              <p id="ai-brief-advice-text">
+                Focus on combining your full-stack core with AI orchestration (LangChain, FastAPI, Gemini API) and containerized deployment (Docker, GitHub Actions). Build one public showcase repository demonstrating local Darija NLP or Tunisian business data integration to stand out in the local tech ecosystem.
+              </p>
+              <div class="ai-advice-actions">
+                <button type="button" class="btn-secondary btn-sm" id="btn-refresh-ai-brief">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                  <span>Re-analyze Feed</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Personalized Roadmap -->
+        <div class="ai-panel" id="ai-panel-roadmap">
+          <div class="roadmap-wrapper">
+            <div class="roadmap-header">
+              <div>
+                <h3>Target Progression: AI-Augmented Software Engineer</h3>
+                <p>Tailored milestone pathway aligned with your profile and the Tunisian tech market.</p>
+              </div>
+              <span class="roadmap-badge">Quarterly Plan</span>
+            </div>
+
+            <div class="roadmap-timeline">
+              <!-- Step 1 -->
+              <div class="roadmap-step completed">
+                <div class="step-marker">1</div>
+                <div class="step-card">
+                  <div class="step-meta">WEEK 1-2 · FOUNDATIONS</div>
+                  <h4>API Mastery &amp; Semantic Embeddings</h4>
+                  <p>Integrate Gemini 2.0 Flash APIs, understand token management, prompt chaining, and vector embeddings for semantic search in web applications.</p>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="roadmap-step current">
+                <div class="step-marker">2</div>
+                <div class="step-card">
+                  <div class="step-meta">WEEK 3-5 · ACTIVE FOCUS</div>
+                  <h4>Production Containers &amp; Microservices</h4>
+                  <p>Containerize your apps using multi-stage Docker builds. Implement automated GitHub Actions for testing and linting, and deploy to modern cloud environments.</p>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="roadmap-step">
+                <div class="step-marker">3</div>
+                <div class="step-card">
+                  <div class="step-meta">WEEK 6-8 · SPECIALIZATION</div>
+                  <h4>Tunisian Ecosystem Hackathons &amp; Open Source</h4>
+                  <p>Participate in local hackathons (INSAT, GDG Tunis). Build an open-source tool for Tunisian developers (e.g. Darija text processing, exchange rate aggregator).</p>
+                </div>
+              </div>
+
+              <!-- Step 4 -->
+              <div class="roadmap-step">
+                <div class="step-marker">4</div>
+                <div class="step-card">
+                  <div class="step-meta">MONTH 3+ · ADVANCED</div>
+                  <h4>Production SRE &amp; Leadership</h4>
+                  <p>Scale applications with Redis caching, PostgreSQL indexing, distributed tracing, and mentor junior developers in the community.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 3: Action To-Do List -->
+        <div class="ai-panel" id="ai-panel-todolist">
+          <div class="todo-wrapper">
+            <div class="todo-header">
+              <div>
+                <h3>Actionable Mini To-Do List</h3>
+                <p>High-leverage tasks derived from the items and advice in your feed.</p>
+              </div>
+              <div class="todo-progress-indicator" id="todo-progress-text">0 of 5 completed</div>
+            </div>
+
+            <div class="todo-items-list" id="ai-todo-list">
+              <!-- Dynamically populated via JS -->
+            </div>
+
+            <!-- Add custom task -->
+            <form class="todo-add-form" id="ai-todo-add-form">
+              <input type="text" id="ai-todo-input" placeholder="Add custom action item..." required />
+              <button type="submit" class="btn-primary btn-sm">Add Item</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Panel 4: Mini Chat with AI -->
+        <div class="ai-panel" id="ai-panel-chat">
+          <div class="ai-chat-wrapper">
+            <div class="ai-chat-messages" id="ai-chat-messages">
+              <div class="chat-msg ai-msg">
+                <div class="msg-avatar">AI</div>
+                <div class="msg-bubble">
+                  <p><strong>Salam! I'm your Nabdh AI Copilot.</strong></p>
+                  <p>I've reviewed your feed, profile interests, and current tech trends. You can ask me anything about:</p>
+                  <ul>
+                    <li>Deep technical explanations of any article or news item in your feed</li>
+                    <li>How to prepare for upcoming Tunisian hackathons and tech events</li>
+                    <li>Code snippets or architecture blueprints for your roadmap projects</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="ai-chat-suggestions">
+              <button type="button" class="chat-suggest-btn" data-query="Explain how Tunisian startups are using AI today">Tunisian AI Startups</button>
+              <button type="button" class="chat-suggest-btn" data-query="Give me a 5-step checklist for the next INSAT hackathon">Hackathon Checklist</button>
+              <button type="button" class="chat-suggest-btn" data-query="How do I get started with Docker and Kubernetes in Tunisia?">Docker &amp; K8s Starter</button>
+            </div>
+
+            <form class="ai-chat-input-row" id="ai-chat-form">
+              <input type="text" id="ai-chat-input" placeholder="Ask AI Copilot about your feed, roadmap, or code..." autocomplete="off" required />
+              <button type="submit" class="btn-primary btn-sm" id="ai-chat-send-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span>Send</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Animated Toast Notification -->
+  <div class="nabdh-toast" id="nabdh-toast">
+    <span class="toast-icon">✓</span>
+    <span class="toast-text" id="nabdh-toast-text">Settings updated successfully!</span>
+  </div>
+
+  <script src="app.js?v=11"></script>
 </body>
 
 </html>
