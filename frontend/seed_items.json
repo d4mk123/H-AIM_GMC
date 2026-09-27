@@ -1,5 +1,6 @@
 [
   {
+<<<<<<< HEAD
     "id": "news-001",
     "type": "news",
     "title": "Tunisia Expands Startup Financing Efforts Through New Fund Initiative",
@@ -410,3 +411,203 @@
     ]
   }
 ]
+=======
+    "id": "seed-news-01",
+    "type": "news",
+    "title": "Tunisian startups push for a second version of the Startup Act",
+    "summary": "Founders and investors are calling for wider eligibility, easier equity schemes, and faster registration so more local companies can qualify as innovative startups.",
+    "source": "Business News",
+    "url": "https://www.businessnews.tn/",
+    "publishedAt": "2026-09-24",
+    "city": "Tunis",
+    "tags": ["startups", "fintech"]
+  },
+  {
+    "id": "seed-news-02",
+    "type": "news",
+    "title": "Tunisia AI Summit sets date for its biggest edition yet",
+    "summary": "Organisers announced three days of talks on applied AI, Arabic language models, and industrial automation, with a dedicated startup showcase and hiring floor.",
+    "source": "Tunisia AI Summit",
+    "url": "https://tunisia-ai-summit.com/",
+    "publishedAt": "2026-09-22",
+    "city": "Tunis",
+    "tags": ["ai", "startups"]
+  },
+  {
+    "id": "seed-news-03",
+    "type": "news",
+    "title": "National CERT reports a rise in phishing targeting banking customers",
+    "summary": "The guidance is straightforward: enable multi-factor authentication, verify sender domains, and keep session tokens short-lived. Security teams are urged to share indicators with the national centre.",
+    "source": "CERT Tunisie",
+    "url": "https://www.cert.tn/",
+    "publishedAt": "2026-09-20",
+    "city": "Tunis",
+    "tags": ["cybersecurity", "fintech"]
+  },
+  {
+    "id": "seed-news-04",
+    "type": "news",
+    "title": "Fibre rollout reaches new neighbourhoods across the greater Tunis area",
+    "summary": "The latest phase adds coverage in Ariana and Ben Arous, with operators promising symmetric speeds and a wider choice of local internet service providers.",
+    "source": "Tunisie Numérique",
+    "url": "https://www.tunisienumerique.tn/",
+    "publishedAt": "2026-09-18",
+    "city": "Ariana",
+    "tags": ["telecom", "cloud"]
+  },
+  {
+    "id": "seed-news-05",
+    "type": "news",
+    "title": "Open data portal adds machine-readable economic datasets",
+    "summary": "Statistics on exports, employment, and business registrations are now published as CSV and JSON, giving analysts a cleaner base for dashboards and research.",
+    "source": "data.gov.tn",
+    "url": "https://data.gov.tn/",
+    "publishedAt": "2026-09-15",
+    "city": "Tunis",
+    "tags": ["data", "open-source"]
+  },
+  {
+    "id": "seed-news-06",
+    "type": "news",
+    "title": "Local resellers report growing demand for managed cloud migration",
+    "summary": "Small and mid-sized companies are moving billing and inventory workloads off spreadservers, driving hiring for engineers who know Linux, containers, and cost control.",
+    "source": "WebForce360",
+    "url": "https://www.webforce360.com/",
+    "publishedAt": "2026-09-12",
+    "city": "Tunis",
+    "tags": ["cloud", "devops"]
+  },
+  {
+    "id": "seed-job-01",
+    "type": "job",
+    "title": "Backend Engineer (Node.js) — fintech product team",
+    "summary": "Build payment reconciliation services and internal APIs in Node.js and PostgreSQL. Three years of backend experience and a good grasp of testing habits required.",
+    "source": "Expensya careers",
+    "url": "https://www.expensya.com/",
+    "publishedAt": "2026-09-25",
+    "city": "Tunis",
+    "tags": ["web", "fintech"]
+  },
+  {
+    "id": "seed-job-02",
+    "type": "job",
+    "title": "Data Analyst — telecom operations",
+    "summary": "Turn network and customer data into weekly performance reports. SQL and Python are essential; experience with dashboards and clear written communication is a plus.",
+    "source": "Telnet careers",
+    "url": "https://www.telnet.tn/",
+    "publishedAt": "2026-09-23",
+    "city": "Tunis",
+    "tags": ["data"]
+  },
+  {
+    "id": "seed-job-03",
+    "type": "job",
+    "title": "Cybersecurity Analyst — banking sector",
+    "summary": "Monitor SIEM alerts, run vulnerability scans, and support PCI-DSS audits. Familiarity with Linux, networks, and incident response playbooks expected.",
+    "source": "BIAT careers",
+    "url": "https://www.biat.com.tn/",
+    "publishedAt": "2026-09-21",
+    "city": "Tunis",
+    "tags": ["cybersecurity", "fintech"]
+  },
+  {
+    "id": "seed-job-04",
+    "type": "job",
+    "title": "Embedded Software Engineer — automotive electronics",
+    "summary": "Develop C firmware for sensor control units on STM32 microcontrollers. Real-time debugging, CAN bus familiarity, and version control discipline are part of the daily work.",
+    "source": "Steellantis Tunisie careers",
+    "url": "https://www.stellantis.com/",
+    "publishedAt": "2026-09-19",
+    "city": "Sousse",
+    "tags": ["embedded"]
+  },
+  {
+    "id": "seed-job-05",
+    "type": "job",
+    "title": "DevOps Engineer — managed hosting platform",
+    "summary": "Operate CI/CD pipelines, Kubernetes clusters, and monitoring stacks for regional clients. Terraform, Linux shell skills, and on-call readiness are required.",
+    "source": "Gomycode careers",
+    "url": "https://gomycode.com/",
+    "publishedAt": "2026-09-16",
+    "city": "Ariana",
+    "tags": ["devops", "cloud"]
+  },
+  {
+    "id": "seed-internship-01",
+    "type": "internship",
+    "title": "Frontend Intern (React) — SaaS dashboard",
+    "summary": "Six-month internship building reusable components, cleaning up accessibility, and shipping small features alongside two senior engineers. Basic JavaScript and curiosity are enough to start.",
+    "source": "Startup careers",
+    "url": "https://www.welcometothejungle.com/",
+    "publishedAt": "2026-09-22",
+    "city": "Tunis",
+    "tags": ["web", "design"]
+  },
+  {
+    "id": "seed-internship-02",
+    "type": "internship",
+    "title": "Machine Learning Intern — Arabic NLP",
+    "summary": "Fine-tune and evaluate text classification models on Tunisian Arabic datasets. Python, pandas, and a solid statistics foundation are expected; GPU access provided.",
+    "source": "Innovation lab careers",
+    "url": "https://www.instat.tn/",
+    "publishedAt": "2026-09-17",
+    "city": "Tunis",
+    "tags": ["ai", "data"]
+  },
+  {
+    "id": "seed-internship-03",
+    "type": "internship",
+    "title": "Mobile Intern (Flutter) — delivery marketplace",
+    "summary": "Work on customer and courier apps: state management, maps integration, and release testing. Remote-friendly with a weekly review in the office.",
+    "source": "Startup careers",
+    "url": "https://www.welcometothejungle.com/",
+    "publishedAt": "2026-09-14",
+    "city": "La Marsa",
+    "tags": ["mobile", "design"]
+  },
+  {
+    "id": "seed-internship-04",
+    "type": "internship",
+    "title": "IoT Engineering Intern — industrial monitoring",
+    "summary": "Prototype sensor nodes with ESP32, push telemetry to a small dashboard, and document power budgets. Hands-on electronics and basic networking knowledge required.",
+    "source": "Engineering firm careers",
+    "url": "https://www.octopuce.tn/",
+    "publishedAt": "2026-09-11",
+    "city": "Sfax",
+    "tags": ["iot", "embedded"]
+  },
+  {
+    "id": "seed-event-01",
+    "type": "event",
+    "title": "Digital Summit Tunis — product and growth track",
+    "summary": "Two days of talks and workshops covering product management, growth loops, and scaling regional startups, plus a demo area for early-stage teams.",
+    "source": "Digital Summit Tunis",
+    "url": "https://digitalsummittunis.com/",
+    "publishedAt": "2026-09-26",
+    "city": "Tunis",
+    "tags": ["startups", "marketing"]
+  },
+  {
+    "id": "seed-event-02",
+    "type": "event",
+    "title": "Capture-the-flag weekend for security beginners",
+    "summary": "A 48-hour guided CTF covering web exploitation, forensics, and cryptography, with mentors on site and a leaderboard for first-time participants.",
+    "source": "Hack Zone community",
+    "url": "https://hackzone.tn/",
+    "publishedAt": "2026-09-18",
+    "city": "Sousse",
+    "tags": ["cybersecurity"]
+  },
+  {
+    "id": "seed-event-03",
+    "type": "event",
+    "title": "Tunis web developers meetup — APIs and edge rendering",
+    "summary": "Lightning talks on REST design, caching at the edge, and shipping faster front ends, followed by open networking for students and junior developers.",
+    "source": "TunisJS meetup",
+    "url": "https://www.meetup.com/",
+    "publishedAt": "2026-09-13",
+    "city": "Ariana",
+    "tags": ["web", "open-source"]
+  }
+]
+>>>>>>> eebcb40 (fixing)
