@@ -1,4 +1,4 @@
-const DEFAULT_MODEL = 'openai/gpt-oss-120b';
+const DEFAULT_MODEL = 'deepseek-v4.1-flash';
 
 export class ProviderError extends Error {
   constructor(message, status = 0, extra = {}) {
@@ -24,7 +24,7 @@ export class MalformedResponseError extends Error {
 }
 
 export function isConfigured() {
-  return Boolean(process.env.GROQ_API_KEY);
+  return Boolean(process.env.NVIDIA_API_KEY);
 }
 
 // Keep this system prompt stable: it is the caching anchor on provider side.
@@ -70,12 +70,12 @@ function parseLooseJson(content) {
 }
 
 export async function chatJson(messages, { jsonMode = false } = {}) {
-  const apiKey = process.env.GROQ_API_KEY;
+  const apiKey = process.env.NVIDIA_API_KEY || process.env.GROQ_API_KEY;
   if (!apiKey) {
-    throw new ProviderError('AI provider is not configured (GROQ_API_KEY missing)', 0, { code: 'not_configured' });
+    throw new ProviderError('AI provider is not configured (NVIDIA_API_KEY missing)', 0, { code: 'not_configured' });
   }
-  const baseUrl = String(process.env.AI_BASE_URL || 'https://api.groq.com/openai/v1').replace(/\/+$/, '');
-  const model = process.env.GROQ_MODEL || DEFAULT_MODEL;
+  const baseUrl = String(process.env.AI_BASE_URL || 'https://integrate.api.nvidia.com/v1').replace(/\/+$/, '');
+  const model = process.env.NVIDIA_MODEL || process.env.AI_MODEL || DEFAULT_MODEL;
   const timeoutMs = Number(process.env.AI_TIMEOUT_MS || 8000);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
