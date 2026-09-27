@@ -344,3 +344,13 @@ function renderBrief() {
   container.classList.remove('hidden');
   cardsContainer.classList.add('hidden');
 }
+
+/* Wire the sidebar "Weekly Brief" button to the real brief */
+document.getElementById('open-ai-brief-btn')?.addEventListener('click', () => {
+  navItems.forEach((b) => b.classList.remove('active'));
+  const briefBtn = document.querySelector('[data-view="brief"]');
+  if (briefBtn) briefBtn.classList.add('active');
+  state.activeView = 'brief';
+  currentViewTitle.textContent = 'Weekly Brief';
+  if (!state.brief) loadBrief(); else renderBrief();
+});
